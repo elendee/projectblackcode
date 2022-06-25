@@ -10,11 +10,8 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+	<div id='console'></div>
 
-		woohoo typer
-
-	</main><!-- #main -->
 
 <?php
 get_sidebar();
