@@ -146,7 +146,7 @@ function pbc_scripts() {
 	if( is_page_template('template-typer.php')) {
 
 		wp_enqueue_script( 'pbc-typer', get_template_directory_uri() . '/js/init_typer.js', array(), _S_VERSION, true );
-		wp_enqueue_style( 'pbc-typer-style', get_template_directory_uri() . '/js/hackertyper/typer.css', array(), _S_VERSION );
+		wp_enqueue_style( 'pbc-typer-style', get_template_directory_uri() . '/css/typer.css', array(), _S_VERSION );
 
 	}
 

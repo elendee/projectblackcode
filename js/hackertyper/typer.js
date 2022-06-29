@@ -2,10 +2,8 @@
 	*(c) Copyright 2011 Simone Masiero. Some Rights Reserved.
 	*This work is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License
 
-	This work has been modified by Kerry O'Connor https://oko.nyc for project-black-code 2022
+	The original work has been modified for project-black-code, 2022
 */
-
-// import fetch_wrap from '../fetch_wrap.js'
 
 
 
@@ -15,6 +13,11 @@ const SOUNDS = {
 	error: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
 }
 
+
+const menu_items = document.querySelectorAll('#primary-menu li a')
+for( const item of menu_items ){
+	item.classList.add('glow-green')
+}
 
 
 document.addEventListener('keydown', e => {
