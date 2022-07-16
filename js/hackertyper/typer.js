@@ -266,23 +266,7 @@ var Typer = window.Typer = {
 
 
 // render menu
-// goal is to have a normal menu still available, but remove it on this page only
-const primary = document.getElementById('primary-menu')
-// remove:
-const links = primary.querySelectorAll('li')
-for( const link of links ){
-	link.remove()
-}
-// add:
-const typer_links = ['shop', 'blog', 'contact']
-for( const link of typer_links ){
-	const newlink = document.createElement('li')
-	newlink.innerText = link
-	newlink.setAttribute('data-type', link )
-	newlink.addEventListener('click', pop_modal )
-}
-
-const pop_modal = e => {
+const pop_menu_modal = e => {
 	const type = e.target.getAttribute('data-type')
 	const modal = new Modal({
 		type: 'menu-modal',
@@ -290,6 +274,7 @@ const pop_modal = e => {
 	modal.ele.classList.add('menu-modal-' + type)
 	const header = document.createElement('h4')
 	header.innerText = type
+	modal.content.append( header )
 	switch( type ){
 		case 'shop':
 			// fetch_wrap('/admin-ajax.php', 'post' {
@@ -310,6 +295,23 @@ const pop_modal = e => {
 	modal.show()
 
 }
+// goal is to have a normal menu still available, but remove it on this page only
+const primary = document.getElementById('primary-menu')
+// remove:
+const links = primary.querySelectorAll('li')
+for( const link of links ){
+	link.remove()
+}
+// add:
+const typer_links = ['shop', 'blog', 'contact']
+for( const link of typer_links ){
+	const newlink = document.createElement('li')
+	newlink.innerText = link
+	newlink.setAttribute('data-type', link )
+	newlink.addEventListener('click', pop_menu_modal )
+}
+
+
 
 
 
