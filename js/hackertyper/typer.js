@@ -295,20 +295,33 @@ const pop_menu_modal = e => {
 	modal.show()
 
 }
-// goal is to have a normal menu still available, but remove it on this page only
-const primary = document.getElementById('primary-menu')
-// remove:
-const links = primary.querySelectorAll('li')
-for( const link of links ){
-	link.remove()
-}
-// add:
-const typer_links = ['shop', 'blog', 'contact']
-for( const link of typer_links ){
-	const newlink = document.createElement('li')
-	newlink.innerText = link
-	newlink.setAttribute('data-type', link )
-	newlink.addEventListener('click', pop_menu_modal )
+
+if( !localStorage.getItem('pbc-skip-menu') ){
+
+	// goal is to have a normal menu still available, but remove it on this page only
+	const primary = document.getElementById('primary-menu')
+	// remove:
+	const links = primary.querySelectorAll('li')
+	for( const link of links ){
+		link.remove()
+	}
+	// add:
+	const typer_links = ['shop', 'blog', 'contact']
+	for( const link of typer_links ){
+
+		const newlink = document.createElement('li')
+		newlink.classList.add('menu-item')
+		newlink.setAttribute('data-type', link )
+		newlink.addEventListener('click', pop_menu_modal )
+
+		const a = document.createElement('a')
+		a.innerText = link
+		newlink.append( a )
+
+		primary.append( newlink )
+
+	}
+
 }
 
 

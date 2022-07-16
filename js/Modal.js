@@ -144,16 +144,11 @@ class Modal {
 		modal.close.classList.add('modal-close', 'flex-wrapper')
 		modal.close.innerHTML = '&times;'
 		modal.close.addEventListener('click', () => {
-			modal.close()
+			modal.hide()
 		})
 		modal.ele.appendChild( modal.content )
 		modal.ele.appendChild( modal.close )
 
-	}
-
-	close(){
-		this.ele.remove()
-		// BROKER.publish('MODAL_CLOSE', { type: init.type })
 	}
 
 	make_columns(){
