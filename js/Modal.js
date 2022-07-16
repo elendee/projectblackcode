@@ -152,7 +152,7 @@ class Modal {
 	}
 
 	close(){
-		modal.ele.remove()
+		this.ele.remove()
 		// BROKER.publish('MODAL_CLOSE', { type: init.type })
 	}
 
@@ -169,6 +169,14 @@ class Modal {
 
 		this.ele.classList.add('has-columns')
 		
+	}
+
+	show(){
+		document.body.append( this.ele )
+	}
+
+	hide(){
+		this.ele.remove()
 	}
 
 
