@@ -114,6 +114,8 @@ const pop_menu_modal = e => {
 
 }
 
+
+
 // the main window key-down handler - needs to be unbound for modals
 const hacker_listen = e => {
 	if( event.ctrlKey || event.keyCode === 123 ) return // dev tools
@@ -446,6 +448,8 @@ if( !localStorage.getItem('pbc-skip-menu') ){
 		newlink.append( a )
 
 		primary.append( newlink )
+
+		console.log('appended', newlink )
 
 	}
 
