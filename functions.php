@@ -214,12 +214,12 @@ function pbc_LOG( $msg ){
 
 	global $IS_LOCAL;
 
-	if( $IS_LOCAL ){
-		$logfile = dirname( __FILE__ ) . '/.oko-log.txt';
-	}else{
-		$logfile = '~/pbc_LOG.txt';
-	}
-	file_put_contents($logfile, date('M:D:H:i') . ' functions.php: ' . $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
+	$logfile = dirname( __FILE__ ) . '/.pbc-log.txt';
+	// if( $IS_LOCAL ){
+	// }else{
+	// 	$logfile = '~/pbc_LOG.txt';
+	// }
+	file_put_contents( $logfile, date('M:D:H:i') . ': ' . $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
 
 }
 
