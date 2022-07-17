@@ -1,0 +1,22 @@
+.wpcf7 input, 
+.wpcf7 textarea{
+    width: 100%;
+    border: 0px solid;
+    border-bottom: 1px solid;
+    border-radius: 0px;
+}
+
+.wpcf7 p:last-of-type input{
+    background: transparent;
+    border: 1px solid;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    width: 200px;
+    float: right;
+    cursor: pointer;
+}
+
+.wpcf7 p:last-of-type input:hover{
+    background: lightgrey;
+}

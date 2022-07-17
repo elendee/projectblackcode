@@ -9,6 +9,14 @@ body {
   /*   font-family: 'Source Code Pro'; */
 }
 
+.flex-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
 
 /*--- standard WP elements */
 
@@ -48,6 +56,14 @@ body {
 
 
 /*--- typer elements*/
+
+#typer-popups{
+	display: none;
+}
+#text-source{
+/* 	the optional ACF input */
+	display: none;
+}
 
 #console{
 	user-select: none;
@@ -131,3 +147,29 @@ body {
 #dev .button:hover{
   background: rgba(255, 255, 255, .2);
 }
+
+
+.modal .modal-content{
+	max-width: 90vw !important;
+	color: lightgreen;
+	border: 1px solid lightgreen;
+}
+.modal .modal-content input,
+.modal .modal-content textarea{
+	background: black;
+	color: lightgreen;
+}
+.modal-close{
+	right: 5vw !important;
+	color: lightgreen !important;
+	border: 1px solid lightgreen !important;
+}
+.modal-close:hover{
+	background: black !important;
+	color: red !important;
+	border: 1px solid red !important;
+}
+.modal-close{
+	
+}
+

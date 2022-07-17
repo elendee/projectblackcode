@@ -14,30 +14,155 @@ const SOUNDS = {
 	success: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_sharp.mp3'),
 	error: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
 }
-
-
 const menu_items = document.querySelectorAll('#primary-menu li a')
-for( const item of menu_items ){
-	item.classList.add('glow-green')
+const popups = document.getElementById('typer-popups')
+
+// track open modal
+window.MODAL = false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// callbacks
+
+// render menu
+const pop_menu_modal = e => {
+
+	// validate modal
+	const parents = [
+		e.target,
+		e.target.parentElement,
+	]
+
+	let clicked_li
+	for( const ele of parents ){
+		if( ele.classList.contains('page_item')){
+			clicked_li = ele
+			break
+		}
+	}
+	if( !clicked_li ) return console.log('invalid popup', e.target )
+
+	// done validating; proceed
+	document.removeEventListener('keydown', hacker_listen )
+
+	// clear existing modal
+	if( window.MODAL ) MODAL.hide()
+	// ^^ this should handle both programattic and DOM, but
+	// just in case, cleanup here:
+	let modal = document.querySelector('.modal')
+	if( modal )
+		console.log('modal still existing in DOM somehow, closing...')
+		modal.remove() 
+	}
+
+	// and set
+	play_sound('success', .1 )
+	// get type
+	const type = clicked_li.getAttribute('data-type')
+	modal = new Modal({
+		type: 'menu-modal',
+	})
+	modal.ele.classList.add('menu-modal-' + type)
+	// header
+	const header = document.createElement('h4')
+	header.innerText = type
+	modal.content.append( header )
+
+	switch( type ){
+
+		case 'shop':
+			break;
+
+		case 'blog':
+			break;
+
+		case 'contact':
+			const contact = popups.querySelector('div[data-type="contact"]')
+			// console.log('c: ', contact )
+			modal.content.append( contact )
+			modal.close_callback = () => {
+				popups.append( contact )
+				document.addEventListener('keydown', hacker_listen )
+			}
+			break;
+
+		default:
+			console.log('unknown modal type', type )
+			break;
+
+	}
+
+	modal.show()
+	window.MODAL = modal
+
+}
+
+// the main window key-down handler - needs to be unbound for modals
+const hacker_listen = e => {
+	if( event.ctrlKey || event.keyCode === 123 ) return // dev tools
+	Typer.addText( event ); //Capture the key-down event and call the addText, this is executed on page load		
 }
 
 
-document.addEventListener('keydown', e => {
-	if( event.ctrlKey || event.keyCode === 123 ) return // dev tools
-	Typer.addText( event ); //Capture the keydown event and call the addText, this is executed on page load	
-})
 
+// dev buttons
+const build_btn = ( text, is_dev ) => {
+	const wrapper = document.createElement('div')
+	wrapper.classList.add('button')
+	wrapper.innerText = text
+	if( is_dev ){
+		dev.appendChild( wrapper )
+	}
+	return wrapper
+}
 
+// init dev area
+const init_dev_area = () => {
+	const dev = document.createElement('div')
+	dev.id = 'dev'
+	dev.innerHTML = 'dev actions:<br>'
+	document.body.appendChild( dev )
 
-setTimeout(() => {
-	document.getElementById('console').classList.add('glow-green')
-	Typer.init()
-}, 100 )
+	const access = build_btn('access', true)
+	const deny = build_btn('deny', true)
+	const flicker = build_btn('flicker', true)
+	flicker.addEventListener('click', () => {
+		Typer.flicker()
+	})
+	access.addEventListener('click', () => {
+		Typer.makeAccess( true )
+	})
+	deny.addEventListener('click', () => {
+		Typer.makeDenied( true )
+	})
+}
 
-
-
-
-
+// sound
+const play_sound = ( key, volume ) => {
+	if( !SOUNDS[ key ]) return console.log('no sound: ', key )
+	if( typeof volume !== 'number' ) volume = 1
+	volume = Math.min( 1, Math.max( 0, volume ) )
+	SOUNDS[ key ].volume = volume	
+	SOUNDS[ key ].play()
+}
 
 
 
@@ -76,21 +201,31 @@ var Typer = window.Typer = {
 		// 	Typer.text=data;// save the textfile in Typer.text
 		// });
 
-		fetch( Typer.file )
-		.then( data => {
-			data.text()
-			.then( r => {
-				// console.log( r )
-				// Typer.text = data;// save the textfile in Typer.text
-				Typer.text = r;// save the textfile in Typer.text
+		const embedded_text = document.getElementById('text-source')
+		if( embedded_text.innerText ){
+
+			Typer.text = embedded_text.innerText
+
+		}else{
+
+			fetch( Typer.file )
+			.then( data => {
+				data.text()
+				.then( r => {
+					// console.log( r )
+					// Typer.text = data;// save the textfile in Typer.text
+					Typer.text = r;// save the textfile in Typer.text
+				})
+				.catch( err => {
+					console.log( err )
+				})
 			})
 			.catch( err => {
 				console.log( err )
 			})
-		})
-		.catch( err => {
-			console.log( err )
-		})
+
+		}
+
 	},
 
 	content:function(){
@@ -116,11 +251,9 @@ var Typer = window.Typer = {
 			document.body.prepend( ddiv ); // prepend div to body
 		}, 200)
 		if( sound ){
-			SOUNDS.success.volume = .3
-			SOUNDS.success.play()
+			play_sound( 'success', .3 )
 			setTimeout(() => {
-				SOUNDS.success.volume = .6
-				SOUNDS.success.play()
+				play_sound( 'success', .4 )
 			}, 350 )
 		}
 		return false;
@@ -135,8 +268,7 @@ var Typer = window.Typer = {
 		ddiv.innerHTML = "<h1>ACCESS DENIED</h1>";// set content of div
 		document.body.prepend( ddiv );// prepend div to body
 		if( sound ){
-			SOUNDS.error.volume = .2
-			SOUNDS.error.play()
+			play_sound( 'error', .2 )
 		}
 		return false;
 	},
@@ -213,7 +345,7 @@ var Typer = window.Typer = {
 
 			var cont = Typer.content()
 
-			console.log('has text' , cont )
+			// console.log('has text' , cont )
 			// content(); // get the console content
 			if( cont.substring( cont.length - 1, cont.length ) === "|" ) // if the last char is the blinking cursor
 				typer_console.innerHTML = typer_console.innerHTML.substring( 0, cont.length - 1 ); // remove it before adding the text
@@ -265,37 +397,31 @@ var Typer = window.Typer = {
 
 
 
-// render menu
-const pop_menu_modal = e => {
-	const type = e.target.getAttribute('data-type')
-	const modal = new Modal({
-		type: 'menu-modal',
-	})
-	modal.ele.classList.add('menu-modal-' + type)
-	const header = document.createElement('h4')
-	header.innerText = type
-	modal.content.append( header )
-	switch( type ){
-		case 'shop':
-			// fetch_wrap('/admin-ajax.php', 'post' {
 
-			// })
-			break;
-		case 'blog':
-			break;
+// binds
 
-		case 'contact':
-			break;
+document.addEventListener('keydown', hacker_listen )
 
-		default:
-			break;
 
-	}
 
-	modal.show()
 
+
+
+
+
+
+
+
+// init
+
+init_dev_area()
+
+// menu style
+for( const item of menu_items ){
+	item.classList.add('glow-green')
 }
 
+// render home page custom menu
 if( !localStorage.getItem('pbc-skip-menu') ){
 
 	// goal is to have a normal menu still available, but remove it on this page only
@@ -310,11 +436,13 @@ if( !localStorage.getItem('pbc-skip-menu') ){
 	for( const link of typer_links ){
 
 		const newlink = document.createElement('li')
-		newlink.classList.add('menu-item')
+		newlink.classList.add('page_item')
 		newlink.setAttribute('data-type', link )
 		newlink.addEventListener('click', pop_menu_modal )
 
 		const a = document.createElement('a')
+		a.classList.add('glow-green')
+		a.style.cursor = 'pointer'
 		a.innerText = link
 		newlink.append( a )
 
@@ -324,51 +452,14 @@ if( !localStorage.getItem('pbc-skip-menu') ){
 
 }
 
+// typer init
+setTimeout(() => {
+	document.getElementById('console').classList.add('glow-green')
+	Typer.init()
+}, 100 )
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// dev visualizing
-
-const build_btn = ( text, is_dev ) => {
-	const wrapper = document.createElement('div')
-	wrapper.classList.add('button')
-	wrapper.innerText = text
-	if( is_dev ){
-		dev.appendChild( wrapper )
-	}
-	return wrapper
-}
-
-
-const dev = document.createElement('div')
-dev.id = 'dev'
-dev.innerHTML = 'dev actions:<br>'
-document.body.appendChild( dev )
-
-
-const access = build_btn('access', true)
-const deny = build_btn('deny', true)
-const flicker = build_btn('flicker', true)
-flicker.addEventListener('click', () => {
-	Typer.flicker()
-})
-access.addEventListener('click', () => {
-	Typer.makeAccess( true )
-})
-deny.addEventListener('click', () => {
-	Typer.makeDenied( true )
-})
 
 
 

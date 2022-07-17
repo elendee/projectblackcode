@@ -171,7 +171,11 @@ class Modal {
 	}
 
 	hide(){
+
+		if( this.close_callback ) this.close_callback()
+
 		this.ele.remove()
+
 	}
 
 

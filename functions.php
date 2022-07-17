@@ -139,6 +139,7 @@ add_action( 'widgets_init', 'pbc_widgets_init' );
  */
 function pbc_scripts() {
 	wp_enqueue_style( 'pbc-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_enqueue_style( 'pbc-style-wpcf7', get_template_directory_uri() . '/css/wpcf7.css', array(), _S_VERSION );
 	wp_style_add_data( 'pbc-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'pbc-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
