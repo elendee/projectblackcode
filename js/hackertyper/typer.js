@@ -89,9 +89,17 @@ const pop_menu_modal = e => {
 	switch( type ){
 
 		case 'shop':
+			modal.close_callback = () => {
+				document.addEventListener('keydown', hacker_listen )
+				play_sound('success', .1)
+			}
 			break;
 
 		case 'blog':
+			modal.close_callback = () => {
+				document.addEventListener('keydown', hacker_listen )
+				play_sound('success', .1)
+			}
 			break;
 
 		case 'contact':
@@ -101,10 +109,12 @@ const pop_menu_modal = e => {
 			modal.close_callback = () => {
 				popups.append( contact )
 				document.addEventListener('keydown', hacker_listen )
+				play_sound('success', .1)
 			}
 			break;
 
 		default:
+			document.addEventListener('keydown', hacker_listen )
 			console.log('unknown modal type', type )
 			break;
 
