@@ -68,7 +68,7 @@ const pop_menu_modal = e => {
 	// ^^ this should handle both programattic and DOM, but
 	// just in case, cleanup here:
 	let modal = document.querySelector('.modal')
-	if( modal )
+	if( modal ){
 		console.log('modal still existing in DOM somehow, closing...')
 		modal.remove() 
 	}
@@ -111,7 +111,6 @@ const pop_menu_modal = e => {
 	}
 
 	modal.show()
-	window.MODAL = modal
 
 }
 

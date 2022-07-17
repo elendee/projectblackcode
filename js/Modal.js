@@ -167,7 +167,11 @@ class Modal {
 	}
 
 	show(){
+
 		document.body.append( this.ele )
+
+		window.MODAL = this
+		
 	}
 
 	hide(){
@@ -175,6 +179,8 @@ class Modal {
 		if( this.close_callback ) this.close_callback()
 
 		this.ele.remove()
+
+		delete window.MODAL
 
 	}
 
