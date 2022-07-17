@@ -35,6 +35,7 @@ body {
 
 #primary-menu li{
 	padding:  10px;
+	list-style: none;
 }
 
 #primary-menu li a{
