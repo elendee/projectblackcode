@@ -208,11 +208,45 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	ajax handlers
 */
 function home_page_products() {
-	$sample = new Object();
-	echo json_encode($sample);
+	if ( !wp_verify_nonce( $_POST['nonce'], 'pbc-nonce' ) ) {
+        die ( 'invalid request');
+    }
+
+    // 'home page' category:
+    if ( file_exists( dirname( __FILE__ ) . '/.is_local' ) ){
+	    $terms = ['18']; // localhost
+    }else{
+	    $terms = ['19']; // projectblackcode.com
+    }
+
+    $args = array(
+	    'post_type'             => 'product',
+	    'post_status'           => 'publish',
+	    // 'ignore_sticky_posts'   => 1,
+	    'posts_per_page'        => '12',
+	    'tax_query'             => array(
+	        array(
+	            'taxonomy'      => 'product_cat',
+	            // 'field' => 'term_id', //This is optional, as it defaults to 'term_id'
+	            'terms'         => $terms,
+	            'operator'      => 'IN' // Possible values are 'IN', 'NOT IN', 'AND'.
+	        ),
+	        array(
+	        	// more conditions....
+	        )
+	    )
+	);
+	$products = new WP_Query($args);
+
+	foreach ($products->posts as $product) {
+		$product->product_img = get_the_post_thumbnail( $product->ID );
+	}
+
+	echo json_encode( $products->posts );
 	die();
 }
 add_action('wp_ajax_nopriv_home_page_products', 'home_page_products');
+add_action('wp_ajax_home_page_products', 'home_page_products');
 
 /*
 	init ajax routes on client
@@ -228,9 +262,21 @@ function global_scripts() {
 	wp_localize_script( 'pbc-global-js', 'PBC', array(
 			'home_url' => home_url(),
 			// 'ajaxurl' => get_template_directory_uri( 'pbc-ajax.php' ),
+			'nonce' => wp_create_nonce( 'pbc-nonce' ),
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'is_user_logged' => is_user_logged_in(),
 			'version' => _S_VERSION,
 		)
 	);
 }
 add_action('init', 'global_scripts', 100);
+
+
+
+/*
+	woocommerce support
+*/
+function pbc_wc_support(){
+	add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'pbc_wc_support' );

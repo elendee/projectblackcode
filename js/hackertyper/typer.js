@@ -91,13 +91,25 @@ const pop_menu_modal = e => {
 		case 'shop':
 
 			modal.content.innerText = 'loading.....'
-			
-			fetch_wrap( PBC.ajaxurl, 'post', {
-				action: 'home_page_products',
-			})
+
+			jQuery.ajax({
+				url: PBC.ajaxurl,
+				method: 'POST',
+				data: {
+					action: 'home_page_products',
+					nonce: PBC.nonce,
+					is_user_logged_in: PBC.is_user_logged_in,					
+				}
+			}) 
 			.then( res => {
 				modal.content.innerText = ''
-				console.log('product res: ', res )
+				const parsed = JSON.parse( res )
+				modal.content.innerText = JSON.stringify( parsed, false, 2 )
+				// res.json()
+				// .then( res => {
+				console.log('product decoded: ', parsed )
+				// })
+				// console.log('product res: ',  )
 			})
 			.catch( err => {
 				console.log('err products: ', err )
@@ -259,7 +271,7 @@ var Typer = window.Typer = {
 	},
 
 	write:function(str){// append to console content
-		console.log( str )
+		// console.log( str )
 		document.querySelector("#console").append(str);
 		return false;
 	},
