@@ -1,0 +1,1 @@
+// this file / script used for adding global vars from server, don't remove !

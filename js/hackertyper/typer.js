@@ -4,8 +4,8 @@
 
 	The original work has been modified for project-black-code, 2022
 */
-
-import { Modal } from '../Modal.js'
+import fetch_wrap from '../fetch_wrap.js?v=2'
+import { Modal } from '../Modal.js?v=2'
 
 
 
@@ -89,6 +89,19 @@ const pop_menu_modal = e => {
 	switch( type ){
 
 		case 'shop':
+
+			modal.content.innerText = 'loading.....'
+			
+			fetch_wrap( PBC.ajaxurl, 'post', {
+				action: 'home_page_products',
+			})
+			.then( res => {
+				modal.content.innerText = ''
+				console.log('product res: ', res )
+			})
+			.catch( err => {
+				console.log('err products: ', err )
+			})
 			modal.close_callback = () => {
 				document.addEventListener('keydown', hacker_listen )
 				play_sound('success', .1)

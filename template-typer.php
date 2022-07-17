@@ -12,6 +12,8 @@ get_header();
 
 	<div id='console'></div>
 
+	
+
 	<div id='typer-popups'>
 		<!-- these are hidden, and pulled into modals via js -->
 		<div data-type='contact'>
@@ -29,6 +31,8 @@ get_header();
 		</div>
 	</div>
 
+
+
 	<pre id='text-source'>
 		<?php 
 			if( get_field('hackertyper_text_source') ){
@@ -36,6 +40,8 @@ get_header();
 			}
 		?>
 	</pre>
+
+
 
 	<?php
 	?>

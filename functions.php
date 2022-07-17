@@ -201,3 +201,36 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+
+
+
+/*
+	ajax handlers
+*/
+function home_page_products() {
+	$sample = new Object();
+	echo json_encode($sample);
+	die();
+}
+add_action('wp_ajax_nopriv_home_page_products', 'home_page_products');
+
+/*
+	init ajax routes on client
+*/
+function global_scripts() {
+
+	wp_enqueue_script( 
+		'pbc-global-js', 
+		get_template_directory_uri() . '/js/global.js?v=' . _S_VERSION,
+		array()
+	);
+
+	wp_localize_script( 'pbc-global-js', 'PBC', array(
+			'home_url' => home_url(),
+			// 'ajaxurl' => get_template_directory_uri( 'pbc-ajax.php' ),
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'version' => _S_VERSION,
+		)
+	);
+}
+add_action('init', 'global_scripts', 100);
