@@ -1,6 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap'); */
 
+*{
+	box-sizing: border-box;
+}
+
 body {
   background: #000000;
   color: white;
@@ -17,6 +21,28 @@ body {
     width: 100%;
 }
 
+.row,
+.row *{
+	box-sizing:  border-box;
+}
+.row{
+	font-size: 0px;
+}
+.column{
+	font-size: initial;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+}
+.column-2{
+	max-width: 50%;
+}
+.column-3{
+	max-width: 33%;
+}
+.column-4{
+	max-width: 25%;
+}
 
 /*--- standard WP elements */
 
@@ -152,7 +178,8 @@ body {
 
 
 .modal .modal-content{
-	max-width: 90vw !important;
+/* 	max-width: 90vw !important; */
+	max-width: 800px !important;
 	color: lightgreen;
 	border: 1px solid lightgreen;
 }
@@ -162,7 +189,8 @@ body {
 	color: lightgreen;
 }
 .modal-close{
-	right: 5vw !important;
+	right: calc(50% - 400px) !important;
+/* 	right: 5vw !important; */
 	color: lightgreen !important;
 	border: 1px solid lightgreen !important;
 }
@@ -171,7 +199,36 @@ body {
 	color: red !important;
 	border: 1px solid red !important;
 }
-.modal-close{
+
+/* .modal.menu-modal-shop .modal-content{
+}
+.modal.menu-modal-shop .modal-close{
+} */
+
+.pbc-product img{
 	
 }
 
+.pbc-fader{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.pbc-product-img{
+	max-width: 200px;
+	padding: 3px;
+	border: 1px solid lightgreen;
+	line-height: 0;
+	position: relative;
+}
+.pbc-product-img img{
+}
+
+@media screen and (max-width: 800px){
+	.modal-close{
+		right: 0px !important;
+	}
+}

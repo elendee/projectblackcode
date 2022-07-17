@@ -211,24 +211,14 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 $IS_LOCAL = file_exists( dirname( __FILE__ ) . '/.is_local' );
 
 function pbc_LOG( $msg ){
-
-	global $IS_LOCAL;
-
 	$logfile = dirname( __FILE__ ) . '/.pbc-log.txt';
-	// if( $IS_LOCAL ){
-	// }else{
-	// 	$logfile = '~/pbc_LOG.txt';
-	// }
 	file_put_contents( $logfile, date('M:D:H:i') . ': ' . $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
-
 }
 
 /*
 	ajax handlers
 */
 function home_page_products() {
-
-	pbc_LOG('testing log...');
 
 	global $IS_LOCAL;
 
@@ -255,12 +245,14 @@ function home_page_products() {
 	            'terms'         => $terms,
 	            'operator'      => 'IN' // Possible values are 'IN', 'NOT IN', 'AND'.
 	        ),
-	        array(
+	        // array(
 	        	// more conditions....
-	        )
+	        // )
 	    )
 	);
 	$products = new WP_Query($args);
+
+	pbc_LOG('why no products...' . json_encode( $terms ) );
 
 	foreach ($products->posts as $product) {
 		$product->product_img = get_the_post_thumbnail( $product->ID );
