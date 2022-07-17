@@ -252,7 +252,7 @@ function home_page_products() {
 	);
 	$products = new WP_Query($args);
 
-	pbc_LOG('why no products...' . json_encode( $terms ) );
+	// pbc_LOG('why no products...' . json_encode( $terms ) );
 
 	foreach ($products->posts as $product) {
 		$product->product_img = get_the_post_thumbnail( $product->ID );
