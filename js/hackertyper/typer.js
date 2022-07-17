@@ -102,14 +102,26 @@ const pop_menu_modal = e => {
 				}
 			}) 
 			.then( res => {
+
 				modal.content.innerText = ''
+				const header = document.createElement('h4')
+				header.innerText = 'shop'
+				modal.content.append( header )
+
 				const parsed = JSON.parse( res )
-				modal.content.innerText = JSON.stringify( parsed, false, 2 )
-				// res.json()
-				// .then( res => {
 				console.log('product decoded: ', parsed )
-				// })
-				// console.log('product res: ',  )
+
+				if( parsed?.length ){
+					for( const product of parsed ){
+						const p = build_product( product )
+						modal.content.append( p )
+					}
+				}else{
+					modal.content.innerHTML += `<div>(no products currently available)</div>`
+				}
+
+				// modal.content.innerText = JSON.stringify( parsed, false, 2 )
+
 			})
 			.catch( err => {
 				console.log('err products: ', err )
@@ -484,7 +496,7 @@ if( !localStorage.getItem('pbc-skip-menu') ){
 
 		primary.append( newlink )
 
-		console.log('appended', newlink )
+		// console.log('appended', newlink )
 
 	}
 

@@ -205,15 +205,39 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 
 
 /*
+	PBC custom functions below:
+*/
+
+$IS_LOCAL = file_exists( dirname( __FILE__ ) . '/.is_local' );
+
+function pbc_LOG( $msg ){
+
+	global $IS_LOCAL;
+
+	if( $IS_LOCAL ){
+		$logfile = dirname( __FILE__ ) . '/.oko-log.txt';
+	}else{
+		$logfile = '~/pbc_LOG.txt';
+	}
+	file_put_contents($logfile, date('M:D:H:i') . ' functions.php: ' . $msg . PHP_EOL, FILE_APPEND | LOCK_EX);
+
+}
+
+/*
 	ajax handlers
 */
 function home_page_products() {
+
+	pbc_LOG('testing log...');
+
+	global $IS_LOCAL;
+
 	if ( !wp_verify_nonce( $_POST['nonce'], 'pbc-nonce' ) ) {
         die ( 'invalid request');
     }
 
     // 'home page' category:
-    if ( file_exists( dirname( __FILE__ ) . '/.is_local' ) ){
+    if ( $IS_LOCAL ){
 	    $terms = ['18']; // localhost
     }else{
 	    $terms = ['19']; // projectblackcode.com
