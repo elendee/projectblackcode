@@ -32,12 +32,14 @@ const style = `
 .alert-msg{
 	position: relative;
 	background: rgba(0, 0, 0, .9);
-	color: lightgrey;
+	color: lightgreen;
 	font-size: 13px;
 	display: inline-block;
 	margin: 1px 0;
-	padding: 3px 40px 3px 20px;
+	padding: 10px 40px;
     pointer-events: initial;
+	border: 1px solid lightgreen;
+
 }
 .alert-msg pre{
 	max-height: 80vh;
@@ -69,7 +71,7 @@ const style = `
 	top: 0px;
 	pointer-events: initial;
 	cursor: pointer;
-	border-left: 1px solid grey;
+	border-left: 1px solid lightgreen;
 	padding: 2px 5px 0px 5px;
 	font-size: 1.5rem;
 }
@@ -94,11 +96,11 @@ const style = `
 
 const alert_contain = document.createElement('div')
 alert_contain.id = 'alert-contain'
-document.body.appendChild( alert_contain )
+document.body.append( alert_contain )
 
 const ele = document.createElement('style')
 ele.innerHTML = style
-document.head.appendChild( ele )
+document.head.append( ele )
 
 
 
@@ -113,17 +115,17 @@ const hal = ( type, msg, time ) => {
 	if( !type ) type = 'standard'
 
 	close.innerHTML = '&times;'
-	close.classList.add('alert-close-3p')
+	close.classList.add('alert-close')
 
 	icon = '<div></div>'
 
-	alert_msg.innerHTML = `<div class='alert-icon-3p type-${ type }'>${ icon }</div>${ msg }`
+	alert_msg.innerHTML = `<div class='alert-icon type-${ type }'>${ icon }</div>${ msg }`
 	alert_wrapper.classList.add('ui-fader')
-	alert_msg.classList.add('alert-msg-3p' ) // , 'hal-' + type
-	alert_msg.appendChild( close )
-	alert_wrapper.appendChild( alert_msg )
+	alert_msg.classList.add('alert-msg' ) // , 'hal-' + type
+	alert_msg.append( close )
+	alert_wrapper.append( alert_msg )
 
-	alert_contain.appendChild( alert_wrapper )
+	alert_contain.append( alert_wrapper )
 
 
 	close.onclick = function(){

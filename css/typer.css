@@ -84,6 +84,22 @@ body {
 
 
 /*--- typer elements*/
+.button{
+	padding: 8px 12px;
+	display: inline-block;
+	border: 1px solid lightgreen;
+	cursor: pointer;
+	user-select: none;
+}
+.button:hover{
+	background: rgba(0, 255, 0, .2);
+}
+.button:active{
+	background: rgba(255, 105, 0, .3);
+	color: orange;
+	border: 1px solid orange;
+	transform: scale(.95);
+}
 
 #typer-popups{
 	display: none;
@@ -226,6 +242,8 @@ body {
 }
 .pbc-product-img img{
 }
+
+
 
 @media screen and (max-width: 800px){
 	.modal-close{

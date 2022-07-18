@@ -5,6 +5,7 @@
 	The original work has been modified for project-black-code, 2022
 */
 import fetch_wrap from '../fetch_wrap.js?v=2'
+import hal from '../hal.js?v=2'
 import { Modal } from '../Modal.js?v=2'
 import Typer from './Typer.js'
 
@@ -62,6 +63,26 @@ const add_fade = ( container ) => { // , element
 	return fade
 }
 
+const build_button = ( text, sound ) => {
+	const btn = document.createElement('div')
+	btn.classList.add('button')
+	btn.innerText = text
+	if( sound ){
+		const { 
+			type, volume, count, stagger
+		} = sound
+		btn.addEventListener('click', () => {
+			const lim = count || 1
+			for( let i = 0; i < lim; i++ ){
+				setTimeout(() => {
+					play_sound( type, volume || 1 )
+				}, i * stagger )
+			}
+		})
+	}
+	return btn
+}
+
 const build_product = product => {
 
 	// product row
@@ -109,6 +130,50 @@ const build_product = product => {
 		}
 
 	}
+
+	const add_to_cart = build_button( 'add to cart', {
+		type: 'success',
+		volume: .2,
+		count: 2,
+		stagger: 400,
+	})
+	add_to_cart.addEventListener('click', () => {
+		jQuery.ajax({
+			url: PBC.ajaxurl,
+			method: 'POST',
+			data: {
+				action: 'pbc_add',
+				product_id: product.ID,
+				quantity: 1,
+			}
+		})
+		.then( res => {
+
+			console.log( res )
+
+			// print cart quantity
+			if( res?.fragments ){
+				let quantity
+				for( const key in res.fragments ){
+					const s = res.fragments[ key ]
+					const q = s.match(/quantity">[0-9].*/)
+					if( q ){
+						quantity = s.substr( q.index  + 10, 50 ).split(' ')[0]
+						const n = Number( quantity )
+						if( typeof n === 'number' ){
+							hal('success', quantity + ` item${ n > 1 ? 's' : '' } now in cart<br><a href="${ PBC.home_url }/cart">view cart</a>`, 15 * 1000 )
+						}
+					}
+				}
+			}
+
+		})
+		.catch( err => {
+			console.log( err )
+		})
+	})
+	right.append( document.createElement('br') )
+	right.append( add_to_cart )
 
 	return wrapper
 
