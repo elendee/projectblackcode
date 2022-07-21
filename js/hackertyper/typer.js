@@ -277,7 +277,7 @@ const pop_menu_modal = e => {
 				url: PBC.ajaxurl,
 				method: 'POST',
 				data: {
-					action: 'home_page_blog',
+					action: 'home_page_posts',
 					nonce: PBC.nonce,
 					is_user_logged_in: PBC.is_user_logged_in,					
 				}
