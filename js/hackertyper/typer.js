@@ -71,11 +71,13 @@ const build_button = ( text, sound ) => {
 		const { 
 			type, volume, count, stagger
 		} = sound
+		let vol = volume || 1
 		btn.addEventListener('click', () => {
 			const lim = count || 1
 			for( let i = 0; i < lim; i++ ){
 				setTimeout(() => {
-					play_sound( type, volume || 1 )
+					if( sound.step_vol ) vol += sound.step_vol
+					play_sound( type, vol )
 				}, i * stagger )
 			}
 		})
@@ -136,6 +138,7 @@ const build_product = product => {
 		volume: .2,
 		count: 2,
 		stagger: 400,
+		step_vol: .2,
 	})
 	add_to_cart.addEventListener('click', () => {
 		jQuery.ajax({
