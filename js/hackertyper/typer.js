@@ -135,7 +135,7 @@ const build_product = product => {
 
 	const add_to_cart = build_button( 'add to cart', {
 		type: 'success',
-		volume: .2,
+		volume: .1,
 		count: 2,
 		stagger: 400,
 		step_vol: .2,

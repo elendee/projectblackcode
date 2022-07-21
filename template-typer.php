@@ -42,9 +42,7 @@ get_header();
 	</pre>
 
 
-
-	<?php
-	?>
+	<?php echo do_shortcode('[display-posts include_excerpt="true" image_size="thumbnail"]'); ?>
 
 <?php
 // get_sidebar();
