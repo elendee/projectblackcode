@@ -69,14 +69,14 @@ const build_button = ( text, sound ) => {
 	btn.innerText = text
 	if( sound ){
 		const { 
-			type, volume, count, stagger
+			type, volume, count, stagger, step_vol
 		} = sound
 		let vol = volume || 1
 		btn.addEventListener('click', () => {
 			const lim = count || 1
 			for( let i = 0; i < lim; i++ ){
 				setTimeout(() => {
-					if( sound.step_vol ) vol += sound.step_vol
+					if( step_vol ) vol += step_vol
 					play_sound( type, vol )
 				}, i * stagger )
 			}
