@@ -265,6 +265,55 @@ add_action('wp_ajax_nopriv_home_page_products', 'home_page_products');
 add_action('wp_ajax_home_page_products', 'home_page_products');
 
 
+
+function home_page_posts() {
+
+	global $IS_LOCAL;
+
+	if ( !wp_verify_nonce( $_POST['nonce'], 'pbc-nonce' ) ) {
+        die ( 'invalid request');
+    }
+
+    // 'home page' category:
+    // if ( $IS_LOCAL ){
+	   //  $terms = ['18']; // localhost
+    // }else{
+	   //  $terms = ['19']; // projectblackcode.com
+    // }
+
+    $args = array(
+	    'post_type'             => 'post',
+	    'post_status'           => 'publish',
+	    // 'ignore_sticky_posts'   => 1,
+	    'posts_per_page'        => '12',
+	    // 'tax_query'             => array(
+	    //     array(
+	    //         // 'taxonomy'      => 'product_cat',
+	    //         // 'field' => 'term_id', //This is optional, as it defaults to 'term_id'
+	    //         // 'terms'         => $terms,
+	    //         // 'operator'      => 'IN' // Possible values are 'IN', 'NOT IN', 'AND'.
+	    //     ),
+	    //     // array(
+	    //     	// more conditions....
+	    //     // )
+	    // )
+	);
+	$results = new WP_Query($args);
+
+	// pbc_LOG('why no results...' . json_encode( $terms ) );
+
+	foreach ($results->posts as $post) {
+		$post->post_img = get_the_post_thumbnail( $product->ID );
+	}
+
+	echo json_encode( $results->posts );
+	die();
+}
+add_action('wp_ajax_nopriv_home_page_posts', 'home_page_posts');
+add_action('wp_ajax_home_page_posts', 'home_page_posts');
+
+
+
 /*
 	allow ajax add to cart
 	see commented code for allowing variations (needs adaptation)

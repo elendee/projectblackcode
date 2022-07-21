@@ -241,8 +241,8 @@ const pop_menu_modal = e => {
 			.then( res => {
 
 				modal.content.innerText = ''
-				const header = document.createElement('h4')
-				header.innerText = 'shop'
+				// const header = document.createElement('h4')
+				// header.innerText = 'shop'
 				modal.content.append( header )
 
 				const parsed = JSON.parse( res )
@@ -270,6 +270,43 @@ const pop_menu_modal = e => {
 			break;
 
 		case 'blog':
+
+			modal.content.innerText = 'loading.....'
+
+			jQuery.ajax({
+				url: PBC.ajaxurl,
+				method: 'POST',
+				data: {
+					action: 'home_page_blog',
+					nonce: PBC.nonce,
+					is_user_logged_in: PBC.is_user_logged_in,					
+				}
+			}) 
+			.then( res => {
+
+				modal.content.innerText = ''
+				// const header = document.createElement('h4')
+				// header.innerText = 'blog'
+				modal.content.append( header )
+
+				const parsed = JSON.parse( res )
+				console.log('post decoded: ', parsed )
+
+				if( parsed?.length ){
+					for( const post of parsed ){
+						const p = build_post( post )
+						modal.content.append( p )
+					}
+				}else{
+					modal.content.innerHTML += `<div>(no posts currently available)</div>`
+				}
+
+				// modal.content.innerText = JSON.stringify( parsed, false, 2 )
+
+			})
+			.catch( err => {
+				console.log('err blog: ', err )
+			})
 			modal.close_callback = () => {
 				document.addEventListener('keydown', hacker_listen )
 				play_sound('success', .1)
