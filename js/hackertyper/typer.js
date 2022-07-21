@@ -294,7 +294,7 @@ const pop_menu_modal = e => {
 
 				if( parsed?.length ){
 					for( const post of parsed ){
-						const p = build_post( post )
+						const p = build_post( post, true )
 						modal.content.append( p )
 					}
 				}else{
@@ -350,6 +350,16 @@ const build_btn = ( text, is_dev ) => {
 	const wrapper = document.createElement('div')
 	wrapper.classList.add('button')
 	wrapper.innerText = text
+	if( is_dev ){
+		dev.appendChild( wrapper )
+	}
+	return wrapper
+}
+
+const build_post = ( text, is_dev ) => {
+	const wrapper = document.createElement('div')
+	wrapper.classList.add('button')
+	wrapper.innerText = JSON.stringify( text || {}, false, 2 )
 	if( is_dev ){
 		dev.appendChild( wrapper )
 	}
