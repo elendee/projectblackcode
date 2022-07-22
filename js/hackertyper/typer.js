@@ -113,12 +113,6 @@ const build_product = product => {
 		right.append( excerpt )
 	}
 
-	// if( product.post_content ){
-	// 	const content = document.createElement('div')
-	// 	content.innerText = product.post_content
-	// 	wrapper.append( content )
-	// }
-
 	if( product.product_img ){
 		const img_wrapper = document.createElement('div')
 		img_wrapper.classList.add('pbc-product-img')
@@ -282,10 +276,14 @@ const pop_menu_modal = e => {
 
 			modal.content.prepend( header )
 
-			const img_wrapper = modal.content.querySelector('img')
-			if( img_wrapper) {
-				const fade = add_fade( img_wrapper.parentElement )
-				fade.fade_out()
+			const imgs = modal.content.querySelectorAll('img')
+			for( const img of imgs ){
+				if( img.parentElement.classList.contains('image') ){
+					const fade = add_fade( img.parentElement )
+					img.onload = e => {
+						fade.fade_out()
+					}
+				}
 			}
 
 			modal.close_callback = () => {
@@ -337,15 +335,6 @@ const build_btn = ( text, is_dev ) => {
 	return wrapper
 }
 
-// const build_post = ( text, is_dev ) => {
-// 	const wrapper = document.createElement('div')
-// 	wrapper.classList.add('button')
-// 	wrapper.innerText = JSON.stringify( text || {}, false, 2 )
-// 	if( is_dev ){
-// 		dev.appendChild( wrapper )
-// 	}
-// 	return wrapper
-// }
 
 // init dev area
 const init_dev_area = () => {
@@ -459,7 +448,12 @@ setTimeout(() => {
 	Typer.init()
 }, 100 )
 
-
+document.addEventListener('keyup', e => {
+	if( e.keyCode === 27 ){
+		const modal = document.querySelector('.modal')
+		if( modal ) modal.remove()
+	}
+})
 
 
 

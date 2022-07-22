@@ -248,8 +248,12 @@ body {
 }
 
 .listing-item{
+	min-height: 130px;
 	list-style: none;
-	margin: 50px 0;
+	display: block;
+	width: 100%;
+	margin: 30px 0;
+/* 	border: 2px solid; */
 }
 .listing-item a{
 	display: inline-block;
@@ -259,6 +263,11 @@ body {
 .listing-item>a.image{
 	float: left;
 	margin-right: 20px;
+	position:relative;
+}
+.listing-item>a.image img{
+	max-height: 120px;
+	width: auto;
 }
 
 
