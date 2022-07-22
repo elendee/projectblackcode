@@ -11,12 +11,15 @@ import Typer from './Typer.js'
 
 
 
+
 const SOUNDS = {
 	success: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_sharp.mp3'),
 	error: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
 }
 const menu_items = document.querySelectorAll('#primary-menu li a')
 const popups = document.getElementById('typer-popups')
+
+let IS_TYPER = document.body.classList.contains('page-template-template-typer')
 
 // track open modal
 window.MODAL = false
@@ -318,6 +321,7 @@ const pop_menu_modal = e => {
 
 // the main window key-down handler - needs to be unbound for modals
 const hacker_listen = e => {
+	if( !IS_TYPER ) return
 	if( event.ctrlKey || event.keyCode === 123 ) return // dev tools
 	Typer.addText( event ); //Capture the key-down event and call the addText, this is executed on page load		
 }
@@ -386,12 +390,6 @@ const play_sound = ( key, volume ) => {
 
 
 
-// binds
-
-document.addEventListener('keydown', hacker_listen )
-
-
-
 
 
 
@@ -402,15 +400,13 @@ document.addEventListener('keydown', hacker_listen )
 
 // init
 
-init_dev_area()
-
 // menu style
 for( const item of menu_items ){
 	item.classList.add('glow-green')
 }
 
 // render home page custom menu
-if( !localStorage.getItem('pbc-skip-menu') ){
+if( !localStorage.getItem('pbc-skip-menu') && IS_TYPER ){
 
 	// goal is to have a normal menu still available, but remove it on this page only
 	const primary = document.getElementById('primary-menu')
@@ -421,6 +417,7 @@ if( !localStorage.getItem('pbc-skip-menu') ){
 	}
 	// add:
 	const typer_links = ['shop', 'blog', 'contact']
+	// const back_page_links = ['']
 	for( const link of typer_links ){
 
 		const newlink = document.createElement('li')
@@ -442,11 +439,15 @@ if( !localStorage.getItem('pbc-skip-menu') ){
 
 }
 
-// typer init
-setTimeout(() => {
-	document.getElementById('console').classList.add('glow-green')
-	Typer.init()
-}, 100 )
+if( IS_TYPER ){
+	// typer init
+	setTimeout(() => {
+		document.getElementById('console').classList.add('glow-green')
+		Typer.init()
+	}, 100 )
+	init_dev_area()
+	document.addEventListener('keydown', hacker_listen )
+}
 
 document.addEventListener('keyup', e => {
 	if( e.keyCode === 27 ){

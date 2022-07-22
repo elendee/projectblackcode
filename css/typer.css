@@ -54,6 +54,10 @@ body {
 	border-top: 1px solid;
 }
 
+#primary-menu{
+	background: rgba(0, 0, 0, .8)
+}
+
 /*the header hierarchy*/
 #masthead #site-navigation .menu-menu-1-container #primary-menu a{
 	color: teal;
