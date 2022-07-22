@@ -45,6 +45,14 @@ body {
 }
 
 /*--- standard WP elements */
+a{
+	color: white;
+	text-shadow: 0px 0px 5px green, 0px 0px 5px green;
+}
+a:visited{
+	color: white;
+	text-shadow: 0px 0px 25px purple, 0px 0px 15px red !important;
+}
 
 #masthead{
 	position: fixed;
@@ -67,6 +75,7 @@ body {
 	padding:  10px;
 	list-style: none;
 	display: inline-block;
+	position: relative;
 }
 
 #primary-menu li a{
@@ -103,6 +112,26 @@ body {
 	color: orange;
 	border: 1px solid orange;
 	transform: scale(.95);
+}
+
+.woocommerce a.button.alt,
+.woocommerce button.button,
+.woocommerce .button.wc-backward,
+.woocommerce button[type=submit].alt,
+.woocommerce button[type=submit].alt:hover,
+.woocommerce input[type=submit],
+.woocommerce select{
+	background: rgba(0, 255, 0, .2);
+	border: 0px solid lightgreen;
+	border-radius: 0px;
+	font-weight: initial;
+	color: white;
+}
+select{
+	padding: 8px;
+}
+option{
+	color: black;
 }
 
 #typer-popups{
@@ -279,16 +308,7 @@ body {
 .woocommerce-cart a{
 	color: lightgreen;
 }
-.woocommerce a.button.alt,
-.woocommerce button.button,
-.woocommerce button[type=submit].alt{
-	background: rgba(0, 255, 0, .2);
-	border: 0px solid lightgreen;
-	border-radius: 0px;
-/* 	padding: 5px; */
-	font-weight: initial;
-	color: white;
-}
+
 .woocommerce a.button.alt:hover{
 	background: rgba(0, 255, 0, .4);
 }
@@ -299,8 +319,16 @@ body {
 	border-radius: 0px;
 	color: orange;
 }
+
+
 .woocommerce input.input-text,
-.woocommerce input.input-text::placeholder{
+.woocommerce input.input-text::placeholder,
+input[type=text]{
+	color: white !important;
+	text-shadow: 0px 0px 5px lightgreen, 0px 0px 5px lightgreen;
+}
+.woocommerce-cart input.input-text,
+.woocommerce-cart input.input-text::placeholder{
 	color: white;
 	text-shadow: 0px 0px 5px orange, 0px 0px 5px orange;
 }
@@ -342,8 +370,115 @@ body {
 	display: none;
 }
 
+
+a.pbc-cart-count{
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 100%;
+	width: 200px;
+	font-size: .8rem;
+	color: white;
+	text-shadow: 0px 0px 10px orange, 0px 0px 10px orange;
+}
+
+/* input backgrounds */
+input[type=text],
+input[type=email],
+input[type=search],
+textarea{
+	background: black;
+	border: 0px;
+	border-bottom: 1px solid grey;
+}
+
+body.woocommerce-checkout,
+body.error404{
+	color: lightgreen;
+}
+
+body.woocommerce-checkout .select2-selection__rendered,
+body.woocommerce-checkout .select2-selection__rendered option{
+/* 	background: black; */
+/* 	color: lightgreen; */
+}
+body.woocommerce-checkout .select2-selection__rendered option{
+	
+}
+.woocommerce-input-wrapper *,
+.select2-results,
+.select2-results .selected,
+.select2-container--default .select2-results__option[aria-selected=true], 
+.select2-container--default .select2-results__option[data-selected=true]{
+	background: black !important;
+	color: lightgreen !important;
+}
+.select2-container--default .select2-results__option[aria-selected=true], 
+.select2-container--default .select2-results__option[data-selected=true]{
+	background: rgb(40, 40, 40) !important;
+}
+.select2-search,
+.select2-search__field input,
+.select2-search__field,
+.select2-search__field::placeholder{
+	background: black;
+	border: 2px solid orange;
+/* 	border: 0px !important; */
+	color: lightgreen;
+}
+
+.woocommerce-checkout-payment,
+.woocommerce-checkout-payment a,
+.woocommerce-info a{
+	color: rgb(40, 40, 40);
+	text-shadow: 0px 0px;
+}
+
+.woocommerce-breadcrumb{
+	display: none;
+}
+
 @media screen and (max-width: 800px){
 	.modal-close{
 		right: 0px !important;
 	}
+}
+
+.main-navigation.toggled{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;	
+	display: flex;
+	justify-columns: center;
+	align-items: center;
+	flex-direction: column;
+	background: rgba(0, 0,0, .9)
+}
+
+button.menu-toggle{
+	position: fixed;
+	top: 1%;
+	left: 50%;
+	margin-left: -12px;
+	display: inline-block;
+	height:30px;
+	background: transparent;
+	border: transparent;
+	color: white;
+	text-shadow: 0px 0px 10px orange, 0px 0px 10px orange;
+	font-size: 1.7rem;
+	padding: 5px;
+}
+.main-navigation.toggled ul#primary-menu{
+	display: flex;
+	justify-columns: center;
+	align-items: center;
+	flex-direction: column;
+	background: transparent;
+	padding-top: 80px;
+}
+.main-navigation.toggled ul#primary-menu li{
+	margin: 2vh 0;
 }

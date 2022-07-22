@@ -46,7 +46,7 @@
 		</div><!-- .site-branding -->
 
 		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'pbc' ); ?></button>
+			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( '☰', 'pbc' ); ?></button>
 			<?php
 			wp_nav_menu(
 				array(
@@ -55,5 +55,17 @@
 				)
 			);
 			?>
+
+			<?php global $woocommerce; ?>
+				 <a class="pbc-cart-count" href="<?php echo $woocommerce->cart->get_cart_url(); ?>"
+				title="<?php _e('Cart View', 'woothemes'); ?>">
+				<?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'),
+				 $woocommerce->cart->cart_contents_count);?> <!-- delimiter here -->
+				<?php 
+				// 	echo $woocommerce->cart->get_cart_total(); 
+				?>
+				</a>
+
+
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->

@@ -46,6 +46,28 @@ window.MODAL = false
 
 // callbacks
 
+let pauses = []
+const add_btn_pause = ( ele, time ) => {
+	ele.addEventListener('click', e => {
+		if( pauses.includes( ele )){
+			pauses.splice( pauses.indexOf( ele ), 1 )
+		}else{
+			pauses.push( ele )
+			e.preventDefault()
+			setTimeout(() => {
+				ele.click()
+			}, time)					
+		}
+
+	})
+}
+
+const add_beep = ele => {
+	ele.addEventListener('click', () => {
+		play_sound('success', .1 )
+	})
+}
+
 const add_fade = ( container ) => { // , element
 	const img = document.createElement('img')
 	img.src = PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/static1.gif'
@@ -162,6 +184,7 @@ const build_product = product => {
 						const n = Number( quantity )
 						if( typeof n === 'number' ){
 							hal('success', quantity + ` item${ n > 1 ? 's' : '' } now in cart<br><a href="${ PBC.home_url }/cart">view cart</a>`, 15 * 1000 )
+							count.innerText =  n + ( ( n > 1 || n === 0 ) ? ' items' : ' item' )
 						}
 					}
 				}
@@ -413,24 +436,25 @@ if( !localStorage.getItem('pbc-skip-menu') && IS_TYPER ){
 	// remove:
 	const links = primary.querySelectorAll('li')
 	for( const link of links ){
+		if( link.innerText.match(/cart/i)){
+			setTimeout(() => {
+				link.parentElement.append( link )
+			}, 300 )
+			continue
+		}
 		link.remove()
 	}
 	// add:
-	const typer_links = ['shop', 'blog', 'contact', 'cart']
+	const typer_links = ['shop', 'blog', 'contact'] 
 	// const back_page_links = ['']
 	for( const link of typer_links ){
 
 		const newlink = document.createElement('li')
 		newlink.classList.add('page_item')
 		newlink.setAttribute('data-type', link )
-		if( link !== 'cart' ){
-			newlink.addEventListener('click', pop_menu_modal )
-		}
-
+		newlink.addEventListener('click', pop_menu_modal )
 		const a = document.createElement('a')
-		if( link === 'cart' ){
-			a.href = '/cart'
-		}
+
 		a.classList.add('glow-green')
 		a.style.cursor = 'pointer'
 		a.innerText = link
@@ -444,6 +468,33 @@ if( !localStorage.getItem('pbc-skip-menu') && IS_TYPER ){
 
 }
 
+
+// cart count
+const count = document.querySelector('a.pbc-cart-count')
+let cart_btn
+for( const btn of document.getElementById('primary-menu').querySelectorAll('li')){
+	const text = btn.innerText
+	if( text.match(/cart/i)){
+		cart_btn = btn
+	}
+	if( text.match(/cart/i) || text.match(/checkout/i) || text.match(/home/i) ){
+		const link = btn.querySelector('a')
+		add_btn_pause( link, 300 )
+		add_beep( link )
+	}
+}
+if( count ){
+	const n = Number( count.innerText.split('item')[0].trim() )
+	if( n > 0 ){
+		count.style.display = 'inline-block'
+		cart_btn.append( count )
+	}
+}
+
+
+
+
+// bind typer functionality
 if( IS_TYPER ){
 	// typer init
 	setTimeout(() => {
@@ -454,6 +505,8 @@ if( IS_TYPER ){
 	document.addEventListener('keydown', hacker_listen )
 }
 
+
+// keybind modal closes
 document.addEventListener('keyup', e => {
 	if( e.keyCode === 27 ){
 		const modal = document.querySelector('.modal')
@@ -461,6 +514,17 @@ document.addEventListener('keyup', e => {
 	}
 })
 
+
+// hacky way to skip re-writing WC templates
+if( document.body.classList.contains('woocommerce-cart')){
+	let redirect = setInterval(() => { // because it only appears post-mod
+		const shop = document.querySelector('p.return-to-shop a')
+		if( shop ){
+			shop.innerText = 'Return to home'
+			shop.href = PBC.home_url
+		}
+	}, 500)
+}
 
 
 
