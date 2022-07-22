@@ -256,7 +256,10 @@ body {
 	vertical-align: top;
 /* 	border: 1px solid; */
 }
-
+.listing-item>a.image{
+	float: left;
+	margin-right: 20px;
+}
 
 
 
