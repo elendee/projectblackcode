@@ -13,8 +13,8 @@ import Typer from './Typer.js'
 
 
 const SOUNDS = {
-	success: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_sharp.mp3'),
-	error: new Audio('./wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
+	success: new Audio( PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/sound/beep_sharp.mp3'),
+	error: new Audio(PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
 }
 const menu_items = document.querySelectorAll('#primary-menu li a')
 const popups = document.getElementById('typer-popups')
@@ -416,16 +416,21 @@ if( !localStorage.getItem('pbc-skip-menu') && IS_TYPER ){
 		link.remove()
 	}
 	// add:
-	const typer_links = ['shop', 'blog', 'contact']
+	const typer_links = ['shop', 'blog', 'contact', 'cart']
 	// const back_page_links = ['']
 	for( const link of typer_links ){
 
 		const newlink = document.createElement('li')
 		newlink.classList.add('page_item')
 		newlink.setAttribute('data-type', link )
-		newlink.addEventListener('click', pop_menu_modal )
+		if( link !== 'cart' ){
+			newlink.addEventListener('click', pop_menu_modal )
+		}
 
 		const a = document.createElement('a')
+		if( link === 'cart' ){
+			a.href = '/cart'
+		}
 		a.classList.add('glow-green')
 		a.style.cursor = 'pointer'
 		a.innerText = link

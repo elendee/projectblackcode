@@ -337,6 +337,10 @@ body {
 	color: lightgreen !important;
 }
 
+.woocommerce .posted_in{
+/* 	categories */
+	display: none;
+}
 
 @media screen and (max-width: 800px){
 	.modal-close{
