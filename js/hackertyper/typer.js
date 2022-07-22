@@ -283,13 +283,10 @@ const pop_menu_modal = e => {
 			modal.content.prepend( header )
 
 			const img_wrapper = modal.content.querySelector('img')
-			const fade = add_fade( img_wrapper.parentElement ) // , img_wrapper.querySelector('img')
-			// img_wrapper.querySelector('img').onload = e => {
-				// fade.fade_out()
-				// setTimeout(() => {
-					fade.fade_out()
-				// }, 200 )
-			// }
+			if( img_wrapper) {
+				const fade = add_fade( img_wrapper.parentElement )
+				fade.fade_out()
+			}
 
 			modal.close_callback = () => {
 				document.addEventListener('keydown', hacker_listen )
