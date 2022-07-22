@@ -276,40 +276,21 @@ const pop_menu_modal = e => {
 
 			modal.content.innerText = 'loading.....'
 
-			jQuery.ajax({
-				url: PBC.ajaxurl,
-				method: 'POST',
-				data: {
-					action: 'home_page_posts',
-					nonce: PBC.nonce,
-					is_user_logged_in: PBC.is_user_logged_in,					
-				}
-			}) 
-			.then( res => {
+			const html = document.getElementById('typer-posts').innerHTML
 
-				modal.content.innerText = ''
-				// const header = document.createElement('h4')
-				// header.innerText = 'blog'
-				modal.content.append( header )
+			modal.content.innerHTML = html
 
-				const parsed = JSON.parse( res )
-				console.log('post decoded: ', parsed )
+			modal.content.prepend( header )
 
-				if( parsed?.length ){
-					for( const post of parsed ){
-						const p = build_post( post, true )
-						modal.content.append( p )
-					}
-				}else{
-					modal.content.innerHTML += `<div>(no posts currently available)</div>`
-				}
+			const img_wrapper = modal.content.querySelector('img')
+			const fade = add_fade( img_wrapper.parentElement ) // , img_wrapper.querySelector('img')
+			// img_wrapper.querySelector('img').onload = e => {
+				// fade.fade_out()
+				// setTimeout(() => {
+					fade.fade_out()
+				// }, 200 )
+			// }
 
-				// modal.content.innerText = JSON.stringify( parsed, false, 2 )
-
-			})
-			.catch( err => {
-				console.log('err blog: ', err )
-			})
 			modal.close_callback = () => {
 				document.addEventListener('keydown', hacker_listen )
 				play_sound('success', .1)
@@ -359,15 +340,15 @@ const build_btn = ( text, is_dev ) => {
 	return wrapper
 }
 
-const build_post = ( text, is_dev ) => {
-	const wrapper = document.createElement('div')
-	wrapper.classList.add('button')
-	wrapper.innerText = JSON.stringify( text || {}, false, 2 )
-	if( is_dev ){
-		dev.appendChild( wrapper )
-	}
-	return wrapper
-}
+// const build_post = ( text, is_dev ) => {
+// 	const wrapper = document.createElement('div')
+// 	wrapper.classList.add('button')
+// 	wrapper.innerText = JSON.stringify( text || {}, false, 2 )
+// 	if( is_dev ){
+// 		dev.appendChild( wrapper )
+// 	}
+// 	return wrapper
+// }
 
 // init dev area
 const init_dev_area = () => {

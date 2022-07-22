@@ -243,6 +243,30 @@ body {
 .pbc-product-img img{
 }
 
+#typer-posts{
+	display: none;
+}
+
+.listing-item{
+	list-style: none;
+	margin: 50px 0;
+}
+.listing-item a{
+	display: inline-block;
+	vertical-align: top;
+/* 	border: 1px solid; */
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media screen and (max-width: 800px){

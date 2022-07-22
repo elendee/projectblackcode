@@ -12,7 +12,6 @@ get_header();
 
 	<div id='console'></div>
 
-	
 
 	<div id='typer-popups'>
 		<!-- these are hidden, and pulled into modals via js -->
@@ -32,7 +31,6 @@ get_header();
 	</div>
 
 
-
 	<pre id='text-source'>
 		<?php 
 			if( get_field('hackertyper_text_source') ){
@@ -42,7 +40,9 @@ get_header();
 	</pre>
 
 
-	<?php echo do_shortcode('[display-posts include_excerpt="true" image_size="thumbnail"]'); ?>
+	<div id='typer-posts'>
+		<?php echo do_shortcode('[display-posts include_excerpt="true" image_size="thumbnail"]'); ?>
+	</div>
 
 <?php
 // get_sidebar();
