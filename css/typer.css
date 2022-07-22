@@ -271,14 +271,67 @@ body {
 }
 
 
+.woocommerce-cart,
+.woocommerce-cart a{
+	color: lightgreen;
+}
+.woocommerce a.button.alt,
+.woocommerce button.button,
+.woocommerce button[type=submit].alt{
+	background: rgba(0, 255, 0, .2);
+	border: 0px solid lightgreen;
+	border-radius: 0px;
+/* 	padding: 5px; */
+	font-weight: initial;
+	color: white;
+}
+.woocommerce a.button.alt:hover{
+	background: rgba(0, 255, 0, .4);
+}
+.woocommerce input.input-text{
+	background: black;
+	border: 0px !important;
+	border-bottom: 1px solid grey !important;
+	border-radius: 0px;
+	color: orange;
+}
+.woocommerce input.input-text,
+.woocommerce input.input-text::placeholder{
+	color: white;
+	text-shadow: 0px 0px 5px orange, 0px 0px 5px orange;
+}
 
+.woocommerce-cart input[name=coupon_code]{
+	width: 200px !important;
+}
 
+.woocommerce .product-name a,
+.single-product .summary a{
+	color: white;
+	text-shadow: 0px 0px 5px lightgreen, 0px 0px 5px lightgreen;
+	text-decoration: none;
+}
 
+.woocommerce-cart h1{
+	display: none;
+}
 
+.single-product #page,
+.woocommerce-cart #page{
+	padding-bottom: 100px;
+}
 
+.single-product{
+	color: lightgreen;
+}
 
-
-
+.wc-tabs li{
+	background: rgba(0, 255, 0, .2) !important;
+	border: 0px !important;
+}
+.wc-tabs li a{
+	color: lightgreen !important;
+}
 
 
 @media screen and (max-width: 800px){

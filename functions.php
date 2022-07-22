@@ -144,10 +144,11 @@ function pbc_scripts() {
 
 	wp_enqueue_script( 'pbc-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
+	wp_enqueue_style( 'pbc-typer-style', get_template_directory_uri() . '/css/typer.css', array(), _S_VERSION );
+	
 	if( is_page_template('template-typer.php')) {
 
 		wp_enqueue_script( 'pbc-typer', get_template_directory_uri() . '/js/init_typer.js', array('jquery'), _S_VERSION, true );
-		wp_enqueue_style( 'pbc-typer-style', get_template_directory_uri() . '/css/typer.css', array(), _S_VERSION );
 
 	}
 
