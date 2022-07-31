@@ -25,7 +25,10 @@ let IS_TYPER = document.body.classList.contains('page-template-template-typer')
 window.MODAL = false
 
 
-
+const toggle = document.querySelector('button.menu-toggle')
+toggle.addEventListener('click', () => {
+	play_sound('success', .2 )
+})
 
 
 

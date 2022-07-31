@@ -41,7 +41,9 @@ get_header();
 
 
 	<div id='typer-posts'>
-		<?php echo do_shortcode('[display-posts include_excerpt="true" image_size="thumbnail"]'); ?>
+		<?php echo do_shortcode('[display-posts include_content="true"]'); ?>
+		<!-- image_size="thumbnail" -->
+		<!-- include_excerpt="true" -->
 	</div>
 
 <?php
