@@ -34,11 +34,11 @@ toggle.addEventListener('click', () => {
 })
 
 
-if( !IS_LIVE ){
+// if( !IS_LIVE ){
 	CONSOLE.addEventListener('click', () => {
 		hal('standard', 'yes hal', 2000 )
 	})
-}
+// }
 
 
 
