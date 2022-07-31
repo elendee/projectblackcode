@@ -4,18 +4,15 @@
 
 	The original work has been modified for project-black-code, 2022
 */
-import fetch_wrap from '../fetch_wrap.js?v=2'
-import hal from '../hal.js?v=2'
-import { Modal } from '../Modal.js?v=2'
-import Typer from './Typer.js'
+import fetch_wrap from '../fetch_wrap.js?v=3'
+import hal from '../hal.js?v=3'
+import { Modal } from '../Modal.js?v=3'
+import Typer from './Typer.js?v=3'
 
 
 
 
-const SOUNDS = {
-	success: new Audio( PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/sound/beep_sharp.mp3'),
-	error: new Audio(PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
-}
+
 const menu_items = document.querySelectorAll('#primary-menu li a')
 const popups = document.getElementById('typer-popups')
 
@@ -30,14 +27,14 @@ window.MODAL = false
 
 const toggle = document.querySelector('button.menu-toggle')
 toggle.addEventListener('click', () => {
-	play_sound('success', .2 )
+	Typer.play_sound('success', .2 )
 })
 
 
 // if( !IS_LIVE ){
-	CONSOLE.addEventListener('click', () => {
-		hal('standard', 'yes hal', 2000 )
-	})
+// 	CONSOLE.addEventListener('click', () => {
+// 		hal('standard', 'yes hal', 2000 )
+// 	})
 // }
 
 
@@ -74,7 +71,7 @@ const add_btn_pause = ( ele, time ) => {
 
 const add_beep = ele => {
 	ele.addEventListener('click', () => {
-		play_sound('success', .1 )
+		Typer.play_sound('success', .1 )
 	})
 }
 
@@ -112,7 +109,7 @@ const build_button = ( text, sound ) => {
 			for( let i = 0; i < lim; i++ ){
 				setTimeout(() => {
 					if( step_vol ) vol += step_vol
-					play_sound( type, vol )
+					Typer.play_sound( type, vol )
 				}, i * stagger )
 			}
 		})
@@ -244,7 +241,7 @@ const pop_menu_modal = e => {
 	}
 
 	// and set
-	play_sound('success', .1 )
+	Typer.play_sound('success', .1 )
 	// get type
 	const type = clicked_li.getAttribute('data-type')
 	modal = new Modal({
@@ -298,7 +295,7 @@ const pop_menu_modal = e => {
 			})
 			modal.close_callback = () => {
 				document.addEventListener('keydown', hacker_listen )
-				play_sound('success', .1)
+				Typer.play_sound('success', .1)
 			}
 			break;
 
@@ -324,7 +321,7 @@ const pop_menu_modal = e => {
 
 			modal.close_callback = () => {
 				document.addEventListener('keydown', hacker_listen )
-				play_sound('success', .1)
+				Typer.play_sound('success', .1)
 			}
 			break;
 
@@ -335,7 +332,7 @@ const pop_menu_modal = e => {
 			modal.close_callback = () => {
 				popups.append( contact )
 				document.addEventListener('keydown', hacker_listen )
-				play_sound('success', .1)
+				Typer.play_sound('success', .1)
 			}
 			break;
 
@@ -355,8 +352,22 @@ const pop_menu_modal = e => {
 // the main window key-down handler - needs to be unbound for modals
 const hacker_listen = e => {
 	if( !IS_TYPER ) return
-	if( event.ctrlKey || event.keyCode === 123 ) return // dev tools
-	Typer.addText( event ); //Capture the key-down event and call the addText, this is executed on page load		
+	if( e.ctrlKey || e.keyCode === 123 ) return // dev tools
+	Typer.addText( e ); //Capture the key-down event and call the addText, this is executed on page load		
+}
+
+
+let feel_buffer = false
+const hacker_feel = e => {
+	if( !IS_TYPER ) return
+	// if( e.ctrlKey || e.keyCode === 123 ) return // dev tools
+	// console.log( )
+	if( feel_buffer ) return
+	Typer.addText()
+	feel_buffer = setTimeout(() => {
+		clearTimeout( feel_buffer )
+		feel_buffer = false
+	}, 1000 )
 }
 
 
@@ -394,14 +405,7 @@ const init_dev_area = () => {
 	})
 }
 
-// sound
-const play_sound = ( key, volume ) => {
-	if( !SOUNDS[ key ]) return console.log('no sound: ', key )
-	if( typeof volume !== 'number' ) volume = 1
-	volume = Math.min( 1, Math.max( 0, volume ) )
-	SOUNDS[ key ].volume = volume	
-	SOUNDS[ key ].play()
-}
+
 
 
 
@@ -512,7 +516,11 @@ if( IS_TYPER ){
 		Typer.init()
 	}, 100 )
 	if( !IS_LIVE )init_dev_area()
-	document.addEventListener('keydown', hacker_listen )
+	if( window.innerWidth < 800 ){
+		document.addEventListener('touchmove', hacker_feel )
+	}else{
+		document.addEventListener('keydown', hacker_listen )
+	}
 }
 
 

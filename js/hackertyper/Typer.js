@@ -1,4 +1,9 @@
 
+const SOUNDS = {
+	success: new Audio( PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/sound/beep_sharp.mp3'),
+	error: new Audio(PBC.home_url + '/wp-content/themes/projectblackcode/js/hackertyper/sound/beep_error.mp3'),
+}
+
 
 var Typer = window.Typer = {
 
@@ -76,9 +81,9 @@ var Typer = window.Typer = {
 			document.body.prepend( ddiv ); // prepend div to body
 		}, 200)
 		if( sound ){
-			play_sound( 'success', .3 )
+			this.play_sound( 'success', .3 )
 			setTimeout(() => {
-				play_sound( 'success', .4 )
+				this.play_sound( 'success', .4 )
 			}, 350 )
 		}
 		return false;
@@ -93,7 +98,7 @@ var Typer = window.Typer = {
 		ddiv.innerHTML = "<h1>ACCESS DENIED</h1>";// set content of div
 		document.body.prepend( ddiv );// prepend div to body
 		if( sound ){
-			play_sound( 'error', .2 )
+			this.play_sound( 'error', .2 )
 		}
 		return false;
 	},
@@ -152,13 +157,13 @@ var Typer = window.Typer = {
 		if( key.key === 'Alt' ){// key 18 = alt key
 			Typer.accessCount++; //increase counter
 			if( Typer.accessCount >= 3 ) {// if it's pressed 3 times
-				Typer.makeAccess(); // make access popup
+				Typer.makeAccess( true ); // make access popup
 			}
 		}else if( key.key === 'CapsLock' ){// key 20 = caps lock
 
 			Typer.deniedCount++; // increase counter
 			if( Typer.deniedCount >= 3 ){ // if it's pressed 3 times
-				Typer.makeDenied(); // make denied popup
+				Typer.makeDenied( true ); // make denied popup
 			}
 
 		}else if( key.key==='Esc' || key.key==='Escape'){ // key 27 = esc key
@@ -209,7 +214,20 @@ var Typer = window.Typer = {
 			typer_console.innerHTML = typer_console.innerHTML.substring( 0, cont.length - 1 ); // remove it
 		else
 			this.write("|"); // else write it
+	},
+
+	play_sound: function( key, volume ){
+		// sound
+		if( !SOUNDS[ key ]) return console.log('no sound: ', key )
+		if( typeof volume !== 'number' ) volume = 1
+		volume = Math.min( 1, Math.max( 0, volume ) )
+		SOUNDS[ key ].volume = volume	
+		SOUNDS[ key ].play()
 	}
+
+
+
+
 }
 
 // const typer = Typer()
