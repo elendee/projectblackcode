@@ -367,7 +367,7 @@ const hacker_feel = e => {
 	feel_buffer = setTimeout(() => {
 		clearTimeout( feel_buffer )
 		feel_buffer = false
-	}, 1000 )
+	}, 200 )
 }
 
 
