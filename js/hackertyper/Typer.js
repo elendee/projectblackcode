@@ -192,7 +192,12 @@ var Typer = window.Typer = {
 			var rts = new RegExp("\\s", "g"); // whitespace regex
 			var rtt = new RegExp("\\t", "g"); // tab regex
 	    	// replace newline chars with br, tabs with 4 space and blanks with an html blank
-	    	typer_console.innerHTML = text.innerHTML.replace( rtn,"<br/>").replace( rtt, "&nbsp;&nbsp;&nbsp;&nbsp;" ).replace( rts,"&nbsp;");
+	    	typer_console.innerHTML = text.innerHTML
+	    		// .replace( rtn,"<br/>")
+	    		.replace( rtt, "&nbsp;&nbsp;&nbsp;&nbsp;" )
+	    		// .replace( rts,"&nbsp;");
+	    		
+	    	// typer_console.innerHTML = text.innerHTML
 			window.scrollBy( 0, 50 ); // scroll to make sure bottom is always visible
 
 		}

@@ -148,8 +148,11 @@ option{
 	height: 100vh;
 	position: fixed;
 	top: 0;
+	border: 5px solid black;
 	left: 0;
 	font-size: .9rem;
+	white-space: break-spaces !important;
+	overflow: auto !important;
 }
 
 .glow-green{
