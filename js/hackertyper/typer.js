@@ -359,11 +359,11 @@ const hacker_listen = e => {
 
 let feel_buffer = false
 const hacker_feel = e => {
-	if( !IS_TYPER ) return
+	if( !IS_TYPER ) return 
 	// if( e.ctrlKey || e.keyCode === 123 ) return // dev tools
 	// console.log( )
 	if( feel_buffer ) return
-	Typer.addText()
+	Typer.addText({})
 	feel_buffer = setTimeout(() => {
 		clearTimeout( feel_buffer )
 		feel_buffer = false
@@ -516,6 +516,7 @@ if( IS_TYPER ){
 		Typer.init()
 	}, 100 )
 	if( !IS_LIVE )init_dev_area()
+
 	if( window.innerWidth < 800 ){
 		CONSOLE.addEventListener('touchmove', hacker_feel )
 	}else{
