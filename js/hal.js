@@ -147,6 +147,6 @@ const hal = ( type, msg, time ) => {
 }
 
 
-
+window.hal = hal
 
 export default hal

@@ -456,8 +456,8 @@ body.woocommerce-checkout .select2-selection__rendered option{
 
 button.menu-toggle{
 	position: fixed;
-	top: 1%;
-	left: 50%;
+	top: 2%;
+	right: 15px;
 	margin-left: -20px;
 	height:30px;
 	background: transparent;

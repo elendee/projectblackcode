@@ -19,7 +19,10 @@ const SOUNDS = {
 const menu_items = document.querySelectorAll('#primary-menu li a')
 const popups = document.getElementById('typer-popups')
 
-let IS_TYPER = document.body.classList.contains('page-template-template-typer')
+const IS_TYPER = document.body.classList.contains('page-template-template-typer')
+const IS_LIVE = !!location.href.match(/projectblackcode/)
+
+const CONSOLE = document.getElementById('console')
 
 // track open modal
 window.MODAL = false
@@ -31,7 +34,11 @@ toggle.addEventListener('click', () => {
 })
 
 
-
+if( !IS_LIVE ){
+	CONSOLE.addEventListener('click', () => {
+		hal('standard', 'yes hal', 2000 )
+	})
+}
 
 
 
@@ -501,10 +508,10 @@ if( count ){
 if( IS_TYPER ){
 	// typer init
 	setTimeout(() => {
-		document.getElementById('console').classList.add('glow-green')
+		CONSOLE.classList.add('glow-green')
 		Typer.init()
 	}, 100 )
-	init_dev_area()
+	if( !IS_LIVE )init_dev_area()
 	document.addEventListener('keydown', hacker_listen )
 }
 
