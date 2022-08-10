@@ -12,6 +12,13 @@ get_header();
 
 	<div id='console'></div>
 
+	<div style='display:none' id='typer-blog-link'>
+		<?php
+			if( get_field('typer_blog_link')){
+				echo get_field('typer_blog_link');
+			}
+		?>
+	</div>
 
 	<div id='typer-popups'>
 		<!-- these are hidden, and pulled into modals via js -->

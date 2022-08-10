@@ -458,6 +458,9 @@ if( !localStorage.getItem('pbc-skip-menu') && IS_TYPER ){
 		}
 		link.remove()
 	}
+
+	// field from ACF to optionally link out to separate blog
+	const typer_blog = document.getElementById('typer-blog-link').innerText.trim()
 	// add:
 	const typer_links = ['shop', 'blog', 'contact'] 
 	// const back_page_links = ['']
@@ -475,6 +478,13 @@ if( !localStorage.getItem('pbc-skip-menu') && IS_TYPER ){
 		newlink.append( a )
 
 		primary.append( newlink )
+
+		// link out to separate blog URL
+		if( link == 'blog' && typer_blog ){
+			newlink.removeEventListener('click', pop_menu_modal )
+			a.href = typer_blog
+			a.target = '_blank'
+		}
 
 		// console.log('appended', newlink )
 
