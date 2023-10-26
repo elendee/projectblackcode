@@ -17,7 +17,7 @@ const menu_items = document.querySelectorAll('#primary-menu li a')
 const popups = document.getElementById('typer-popups')
 
 const IS_TYPER = document.body.classList.contains('page-template-template-typer')
-const IS_LIVE = !!location.href.match(/projectblackcode/)
+const IS_LIVE = !!location.href.match(/antiracistai.com/)
 
 const CONSOLE = document.getElementById('console')
 
