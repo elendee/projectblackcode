@@ -48,9 +48,6 @@ toggle.addEventListener('click', () => {
 
 
 
-
-
-
 // callbacks
 
 let pauses = []

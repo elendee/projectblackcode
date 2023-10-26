@@ -57,15 +57,24 @@
 			?>
 
 			<?php global $woocommerce; ?>
-				 <a class="pbc-cart-count" href="<?php echo $woocommerce->cart->get_cart_url(); ?>"
-				title="<?php _e('Cart View', 'woothemes'); ?>">
-				<?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'),
-				 $woocommerce->cart->cart_contents_count);?> <!-- delimiter here -->
-				<?php 
-				// 	echo $woocommerce->cart->get_cart_total(); 
+				<?php
+					if( $woocommerce ){
 				?>
-				</a>
 
+					<a class="pbc-cart-count" href="<?php echo $woocommerce->cart->get_cart_url(); ?>"
+					title="<?php _e('Cart View', 'woothemes'); ?>">
+					<?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'),
+					 $woocommerce->cart->cart_contents_count);?> <!-- delimiter here -->
+					<?php 
+					// 	echo $woocommerce->cart->get_cart_total(); 
+					?>
+					</a>
+
+				<?php
+					}else{
+						echo 'no wc'; // (error will be thrown in client js)
+					}
+				?>
 
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
