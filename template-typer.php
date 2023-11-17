@@ -45,6 +45,20 @@ get_header();
 			}
 		?>
 	</pre>
+	<pre id='typer-mobile'>
+		<?php 
+			if( get_field('mobile_text_source') ){
+				echo get_field('mobile_text_source');
+			}
+		?>
+	</pre>
+	<pre id='typer-file'>
+		<?php 
+			if( get_field('hacker_typer_source_file') ){
+				echo get_field('hacker_typer_source_file');
+			}
+		?>
+	</pre>
 
 
 	<div id='typer-posts'>

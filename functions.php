@@ -386,6 +386,7 @@ function global_scripts() {
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			'is_user_logged' => is_user_logged_in(),
 			'version' => _S_VERSION,
+			'site_title' => get_bloginfo(),
 		)
 	);
 }

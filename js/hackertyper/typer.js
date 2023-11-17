@@ -520,9 +520,10 @@ if( IS_TYPER ){
 	// typer init
 	setTimeout(() => {
 		CONSOLE.classList.add('glow-green')
-		Typer.init()
-	}, 100 )
-	if( !IS_LIVE )init_dev_area()
+		Typer.init( 3, document.getElementById('typer-file')?.innerText?.trim() )
+	}, 200 )
+
+	if( !IS_LIVE ) init_dev_area()
 
 	// if( window.innerWidth < 800 ){
 	CONSOLE.addEventListener('touchmove', hacker_feel )

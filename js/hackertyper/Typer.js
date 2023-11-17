@@ -11,9 +11,10 @@ var Typer = window.Typer = {
 	accessCountimer:null,
 	index:0, // current cursor position
 	speed:2, // speed of the Typer
-	file:"", //file, must be set
+	file: '',
 	accessCount:0, //times alt is pressed for Access Granted
 	deniedCount:0, //times caps is pressed for Access Denied
+	console: document.getElementById('console'),
 
 
 
@@ -21,7 +22,8 @@ var Typer = window.Typer = {
 	init: function( speed, file ){// initialize Hacker Typer
 
 	    Typer.speed = speed || 3;
-	    Typer.file = file || './wp-content/themes/projectblackcode/js/hackertyper/kernel.txt'
+	    Typer.file = file
+	    // './wp-content/themes/projectblackcode/js/hackertyper/kernel.txt'
 
 		this.accessCountimer = setInterval(() => {
 			Typer.updLstChr();
@@ -31,42 +33,93 @@ var Typer = window.Typer = {
 		// 	Typer.text=data;// save the textfile in Typer.text
 		// });
 
-		const embedded_text = document.getElementById('text-source')
-		if( embedded_text.innerText ){
+		if( window.innerWidth < 800 ){
 
-			Typer.text = embedded_text.innerText
+			Typer.load_mobile_field()
 
 		}else{
 
-			fetch( Typer.file )
-			.then( data => {
-				data.text()
-				.then( r => {
-					// console.log( r )
-					// Typer.text = data;// save the textfile in Typer.text
-					Typer.text = r;// save the textfile in Typer.text
+			if( Typer.file ){
+
+				if( !Typer.file.match(/^http/i) ){
+					// might be absolute URL to file
+					Typer.file = PBC.home_url + Typer.file				
+				}
+
+				fetch( Typer.file )
+				.then( data => {
+
+					if( data?.status === 404 ){
+
+						console.error('no text found; loading fields')
+						Typer.load_fields()
+
+					}else{
+
+						console.log( data.status )
+
+						data.text()
+						.then( r => {
+							// console.log( r )
+							// Typer.text = data;// save the textfile in Typer.text
+							Typer.text = r;// save the textfile in Typer.text
+						})
+						.catch( err => {
+							Typer.load_fields()
+							console.error( 'loading fields (a)', err )
+						})
+					}
 				})
 				.catch( err => {
-					console.log( err )
+					Typer.load_fields()
+					console.error( 'loading fields (b),', err )
 				})
-			})
-			.catch( err => {
-				console.log( err )
-			})
 
+			}else{
+
+				Typer.load_fields()
+
+			}
+
+		}
+
+		console.log('attempting load: ', Typer.file )
+
+	},
+
+	load_mobile_field: function(){
+
+		const mobile_text = document.getElementById('typer-mobile')
+		if( mobile_text.innerText ){
+			Typer.text = mobile_text.innerText
+		}else{
+			Typer.text = PBC.site_title || 'lorem ipsum'
+			console.error('no init field found')
+		}
+	},
+
+	load_fields: function(){
+
+		const embedded_text = document.getElementById('text-source')
+
+		if( embedded_text.innerText ){
+			Typer.text = embedded_text.innerText
+		}else{
+			Typer.text = PBC.site_title || 'lorem ipsum'
+			console.error('no init field found')
 		}
 
 	},
 
 	content:function(){
 
-		return document.querySelector("#console").innerHTML
+		return Typer.console.innerHTML
 
 	},
 
 	write:function(str){// append to console content
 		// console.log( str )
-		document.querySelector("#console").append(str);
+		Typer.console.append(str);
 		return false;
 	},
 
@@ -113,7 +166,6 @@ var Typer = window.Typer = {
 	},
 
 	flicker:function(){
-		var typer_console = document.querySelector("#console")
 
 		let color
 		let r = Math.random()
@@ -126,20 +178,20 @@ var Typer = window.Typer = {
 		}
 		const c = 'glow-' + color
 
-		typer_console.classList.add( c )
+		Typer.console.classList.add( c )
 
 		let flickering = setInterval(() => {
-			typer_console.classList.remove( c )
+			Typer.console.classList.remove( c )
 			setTimeout(() => {
-				typer_console.classList.add( c )
+				Typer.console.classList.add( c )
 			}, 50)
 		}, 100)
 		setTimeout(() => {
 			clearInterval( flickering )
 			flickering = false
 			setTimeout(() => {
-				typer_console.classList.remove( c )
-				typer_console.classList.add( 'glow-green' )
+				Typer.console.classList.remove( c )
+				Typer.console.classList.add( 'glow-green' )
 			}, 100 )
 		}, 500 + Math.floor( Math.random() * 1000 ) )
 	},
@@ -147,8 +199,6 @@ var Typer = window.Typer = {
 	addText:function( key ){//Main function to add the code
 
 		// console.log('add text', key )
-
-		var typer_console = document.querySelector("#console")
 
 		if( Math.random() < .06 ){
 			Typer.flicker()
@@ -172,13 +222,17 @@ var Typer = window.Typer = {
 
 		}else if( Typer.text ){ // otherwise if text is loaded
 
+			if( this.alreadyShimmed >= 5 ){
+				Typer.showFullText()
+				return console.log('done');
+			}
 
 			var cont = Typer.content()
 
 			// console.log('has text' , cont )
 			// content(); // get the console content
 			if( cont.substring( cont.length - 1, cont.length ) === "|" ) // if the last char is the blinking cursor
-				typer_console.innerHTML = typer_console.innerHTML.substring( 0, cont.length - 1 ); // remove it before adding the text
+				Typer.console.innerHTML = Typer.console.innerHTML.substring( 0, cont.length - 1 ); // remove it before adding the text
 			if( key.key !== 'Backspace' ){ // if key is not backspace
 				Typer.index += Typer.speed;	// add to the index the speed
 			}else{
@@ -192,13 +246,16 @@ var Typer = window.Typer = {
 			var rts = new RegExp("\\s", "g"); // whitespace regex
 			var rtt = new RegExp("\\t", "g"); // tab regex
 	    	// replace newline chars with br, tabs with 4 space and blanks with an html blank
-	    	typer_console.innerHTML = text.innerHTML
+	    	Typer.console.innerHTML = text.innerHTML
 	    		// .replace( rtn,"<br/>")
-	    		.replace( rtt, "&nbsp;&nbsp;&nbsp;&nbsp;" )
+	    		// .replace( rtt, "&nbsp;&nbsp;&nbsp;&nbsp;" )
+	    		.replace( rtt, "" )
 	    		// .replace( rts,"&nbsp;");
 	    		
-	    	// typer_console.innerHTML = text.innerHTML
+	    	// Typer.console.innerHTML = text.innerHTML
 			window.scrollBy( 0, 50 ); // scroll to make sure bottom is always visible
+
+			Typer.shimAddFullText()
 
 		}
 
@@ -212,11 +269,29 @@ var Typer = window.Typer = {
 
 	},
 
+	showFullText: function(){
+		const regex = new RegExp( /^\t{0,2}/g )
+		Typer.console.innerHTML = Typer.text.replace( regex, '')
+	},
+
+	shimAddFullText: function(){
+		// nonce
+		if( !this.alreadyShimmed ){
+			this.alreadyShimmed = 1
+		}else if( this.alreadyShimmed >= 5 ){
+			Typer.showFullText()
+			return;
+		}else{
+			// Typer.console.innerHTML = Typer.text
+			this.alreadyShimmed++
+		}
+	},
+
 	updLstChr:function(){ // blinking cursor
-		var typer_console = document.querySelector("#console")
+		// var Typer.console = document.querySelector("#console")
 		var cont = this.content(); // get console
 		if( cont.substring( cont.length - 1, cont.length ) === "|" ) // if last char is the cursor
-			typer_console.innerHTML = typer_console.innerHTML.substring( 0, cont.length - 1 ); // remove it
+			Typer.console.innerHTML = Typer.console.innerHTML.substring( 0, cont.length - 1 ); // remove it
 		else
 			this.write("|"); // else write it
 	},

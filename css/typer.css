@@ -137,7 +137,9 @@ option{
 #typer-popups{
 	display: none;
 }
-#text-source{
+#text-source,
+#typer-mobile,
+#typer-file{
 /* 	the optional ACF input */
 	display: none;
 }
