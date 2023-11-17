@@ -222,7 +222,7 @@ var Typer = window.Typer = {
 
 		}else if( Typer.text ){ // otherwise if text is loaded
 
-			if( this.alreadyShimmed >= 5 ){
+			if( this.alreadyShimmed >= 3 ){
 				Typer.showFullText()
 				return console.log('done');
 			}
@@ -278,7 +278,7 @@ var Typer = window.Typer = {
 		// nonce
 		if( !this.alreadyShimmed ){
 			this.alreadyShimmed = 1
-		}else if( this.alreadyShimmed >= 5 ){
+		}else if( this.alreadyShimmed >= 3 ){
 			Typer.showFullText()
 			return;
 		}else{
