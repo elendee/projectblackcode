@@ -434,7 +434,9 @@ const init_dev_area = () => {
 
 // init
 
-Typer.showFullText()
+setTimeout(() => {
+	Typer.showFullText()
+}, 500)
 
 // menu style
 for( const item of menu_items ){
