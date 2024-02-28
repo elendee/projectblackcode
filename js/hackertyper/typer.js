@@ -434,6 +434,8 @@ const init_dev_area = () => {
 
 // init
 
+Typer.showFullText()
+
 // menu style
 for( const item of menu_items ){
 	item.classList.add('glow-green')
