@@ -233,7 +233,7 @@ function home_page_products() {
     if ( $IS_LOCAL ){
 	    $terms = ['18']; // localhost
     }else{
-	    $terms = ['19']; // projectblackcode.com
+	    $terms = ['17']; // antiracistai.com 'home_page'
     }
 
     $args = array(
