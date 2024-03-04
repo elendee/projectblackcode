@@ -491,6 +491,11 @@ button.menu-toggle{
 	padding-left: 0;
 }
 
+#primary{
+	padding: 20px;
+	/* border: 2px solid; */
+}
+
 @media screen and (max-width: 800px){
 	button.menu-toggle{
 		display: inline-block;
