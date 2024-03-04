@@ -579,7 +579,7 @@ button.menu-toggle{
 		display: initial;
 	}
 	.desktop-only{
-		display: none;	
+		display: none !important;	
 	}
 
 	button.menu-toggle{
