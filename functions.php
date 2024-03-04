@@ -492,7 +492,7 @@ function display_posts_with_fields( $atts ){
 	        </div>';
         }else{ // standard WP articles
      	   	// pbc_LOG('default article: ' . $post->post_title );
-        	$ftd_img = get_the_post_thumbnail_url( $post_id, 'thumbnail');
+			$ftd_img = get_the_post_thumbnail_url( $post_id, 'medium');
         	if( empty($ftd_img) ){
         		$ftd_img = '/wp-content/themes/projectblackcode/resource/article-light.png';
         	}
