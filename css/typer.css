@@ -333,7 +333,11 @@ option{
 
 .woocommerce input.input-text,
 .woocommerce input.input-text::placeholder,
-input[type=text]{
+input[type=text],
+input[type=email],
+input[type=password],
+.modal-content textarea,
+.moda-content input{
 	color: white !important;
 	text-shadow: 0px 0px 5px lightgreen, 0px 0px 5px lightgreen;
 }
