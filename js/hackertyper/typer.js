@@ -18,6 +18,7 @@ const popups = document.getElementById('typer-popups')
 
 const IS_TYPER = document.body.classList.contains('page-template-template-typer')
 const IS_LIVE = !!location.href.match(/antiracistai.com/)
+let PAGE
 
 const CONSOLE = document.getElementById('console')
 
@@ -38,9 +39,11 @@ toggle.addEventListener('click', () => {
 // }
 
 
-
-
-
+if( document.body.classList.contains('single-post') ){
+	PAGE = 'single'
+}else{
+	PAGE = 'default'
+}
 
 
 
@@ -433,6 +436,16 @@ const init_dev_area = () => {
 
 
 // init
+
+if( PAGE === 'single' ){
+	const linked_article = document.querySelector('.linked-article')
+	if( linked_article ){
+		const content = document.querySelector('.entry-content')
+		if( content ){
+			content.parentElement.insertBefore( linked_article, content )
+		}
+	}
+}
 
 setTimeout(() => {
 	Typer.showFullText()

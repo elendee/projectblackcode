@@ -28,16 +28,19 @@ get_header();
 			?>
 
 			<div class='linked-article'>
+				<img src="<?= $img_url ?>">
 				<a target="_blank" href="<?= $link ?>"><?= $title ?></a>
 			</div>
 
-			<?php
+		<?php
 		}
 
 		while ( have_posts() ) :
 			the_post();
 
-			get_template_part( 'template-parts/content', get_post_type() );
+			// if( !$link ){
+				get_template_part( 'template-parts/content', get_post_type() );
+			// }
 
 			the_post_navigation(
 				array(

@@ -62,7 +62,11 @@ get_header();
 
 
 	<div id='typer-posts'>
-		<?php echo do_shortcode('[display-posts include_content="true"]'); ?>
+		<!-- <?php echo do_shortcode('[display-posts ]'); ?> -->
+		<?php 
+			// global display_posts_with_fields;
+			echo do_shortcode('[display_posts_with_fields]'); 
+		?>
 		<!-- image_size="thumbnail" -->
 		<!-- include_excerpt="true" -->
 	</div>

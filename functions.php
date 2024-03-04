@@ -410,3 +410,116 @@ function pbc_wc_support(){
 add_action( 'after_setup_theme', 'pbc_wc_support' );
 
 
+
+
+// Custom shortcode to display posts with custom fields
+// function display_posts_with_fields( $atts ){
+//     $atts = shortcode_atts(array(
+//         'include_content' => 'true',
+//         'custom_field_name' => 'article_link'
+//     ), $atts);
+
+//     $args = array(
+//         'include_content' => $atts['include_content'],
+//     );
+
+//     $posts_output = do_shortcode('[display-posts include_content="' . $atts['include_content'] . '"]');
+
+//     // Retrieve custom field value for each post
+//     $custom_field_name = $atts['custom_field_name'];
+//     $custom_fields_output = '';
+    
+//     if (!empty($custom_field_name)) {
+//         $custom_fields_output .= '<div class="custom-fields-output">';
+//         $custom_fields_output .= '<h3>Custom Fields:</h3>';
+
+// 	            // pbc_LOG('post output: ' . $posts_output );
+
+        
+//         // Loop through the posts and display custom field values
+//         // if (strpos($posts_output, '<article') !== false) {
+//             // $post_ids = get_display_posts_shortcode_post_ids();
+//             $post_ids = get_posts(array('fields' => 'ids'));
+
+//             foreach ($post_ids as $post_id) {
+
+// 	            pbc_LOG('id: ' . $post_id );
+
+//                 $custom_field_value = get_post_meta($post_id, $custom_field_name, true);
+//                 $custom_fields_output .= '<p><strong>Post ID ' . $post_id . ' - Custom Field:</strong> ' . $custom_field_value . '</p>';
+//             }
+//         // }
+        
+//         $custom_fields_output .= '</div>';
+//     }
+
+//     return $posts_output . $custom_fields_output;
+// }
+function display_posts_with_fields( $atts ){
+
+	$html = '';
+
+	$posts = get_posts(array(
+    	// 'fields' => 'ids',
+    	'post_type' => 'post',
+	    'order' => 'DESC',    // Sort in descending order (newest to oldest)
+    ));
+
+    foreach ($posts as $post) {
+        $post_id = $post->ID;
+		$link = get_post_meta( $post_id, 'article_link', true );
+		$title = get_post_meta( $post_id, 'article_title', true );
+		$img_url = get_post_meta( $post_id, 'article_img_url', true );
+
+		$excerpt = get_the_excerpt( $post_id );
+
+        // now delegate types
+        $article = '<div class="pbc-post-listing">';
+
+        if( !empty( $link ) ){ // ACF link articles
+     	   	// pbc_LOG('linked article: ' . $post->post_title );
+	        $article .= '
+	        <div class="link-article-preview article-preview">
+        		<div class="listing-img-contain">
+        			<div class="flex-wrapper">
+			        	<img src="' . $img_url . '">
+			        </div>
+		        </div>
+	        	<div class="listing-text">
+		        	<a class="link-article-preview-title" target="_blank" href="' . $link . '">' . ( $title ? $title : $link ) . '</a>
+		        	<div class="listing-excerpt">' . $excerpt . '</div>
+		        </div>
+	        </div>';
+        }else{ // standard WP articles
+     	   	// pbc_LOG('default article: ' . $post->post_title );
+        	$ftd_img = get_the_post_thumbnail_url( $post_id, 'thumbnail');
+        	if( empty($ftd_img) ){
+        		$ftd_img = '/wp-content/themes/projectblackcode/resource/article-light.png';
+        	}
+        	$article .= '
+        	<div class="default-article-preview article-preview">
+        		<div class="listing-img-contain">
+        			<div class="flex-wrapper">
+		        		<img src="' . $ftd_img . '">
+		        	</div>
+	        	</div>
+	        	<div class="listing-text">
+	        		<a href="' . get_permalink($post_id) . '">' . $post->post_title . '</a>
+		        	<div class="listing-excerpt">' . $excerpt . '</div>
+		        </div>
+        	</div>
+        	';
+        }
+
+        $article .= '</div>';
+
+        // pbc_LOG('article html: '.  $article );
+
+        $html .= $article;
+
+    }
+
+    return $html;
+
+}
+add_shortcode('display_posts_with_fields', 'display_posts_with_fields');
