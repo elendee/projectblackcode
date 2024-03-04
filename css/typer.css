@@ -242,11 +242,20 @@ option{
 	color: lightgreen;
 	border: 1px solid lightgreen;
 }
+.modal .modal-content input[type=email],
+.modal .modal-content input[type=email]:active,
 .modal .modal-content input,
-.modal .modal-content textarea{
+.modal .modal-content textarea,
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
 	background: black;
 	color: lightgreen;
+    -webkit-text-fill-color: lightgreen !important;
+    -webkit-box-shadow: 0 0 0 30px black inset !important;
 }
+
 .modal-close{
 	right: calc(50% - 400px) !important;
 /* 	right: 5vw !important; */
