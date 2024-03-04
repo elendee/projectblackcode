@@ -322,8 +322,8 @@ input:-webkit-autofill:active{
 	width: auto;
 }
 .listing-excerpt.mobile-only{
-	padding-bottom: 50px;
-	display: inline-block;
+	padding-bottom: 50px !important;
+	display: inline-block !important;
 }
 
 
