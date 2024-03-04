@@ -339,7 +339,7 @@ input[type=password],
 .modal-content textarea,
 .moda-content input{
 	color: white !important;
-	text-shadow: 0px 0px 5px lightgreen, 0px 0px 5px lightgreen;
+	text-shadow: 0px 0px 5px lightgreen, 0px 0px 5px green;
 }
 .woocommerce-cart input.input-text,
 .woocommerce-cart input.input-text::placeholder{
