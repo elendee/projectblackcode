@@ -312,6 +312,10 @@ option{
 	max-height: 120px;
 	width: auto;
 }
+.listing-excerpt.mobile-only{
+	padding-bottom: 50px;
+	display: inline-block;
+}
 
 
 .woocommerce-cart,
@@ -554,7 +558,21 @@ button.menu-toggle{
 	/* display: inline-block; */
 }
 
+.mobile-only{
+	display: none;
+}
+.desktop-only{
+	display: initial;	
+}
+
 @media screen and (max-width: 800px){
+	.mobile-only{
+		display: initial;
+	}
+	.desktop-only{
+		display: none;	
+	}
+
 	button.menu-toggle{
 		display: inline-block;
 	}
@@ -562,7 +580,7 @@ button.menu-toggle{
 		width: 95vw;
 	}
 	.modal-close{
-		right: 2vw !important;
+		right: 2.5vw !important;
 	}
 	.main-navigation #primary-menu{
 		display: none;

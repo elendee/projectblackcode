@@ -108,12 +108,7 @@ const css =`
 	color: black;
 	font-weight: bold;
 }
-
-@media screen and (max-width: 800px){
-	.modal-close{
-		right: 0px;
-	}
-}`
+`
 
 const style = document.createElement('style')
 style.innerHTML = css

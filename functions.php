@@ -487,9 +487,13 @@ function display_posts_with_fields( $atts ){
 		        </div>
 	        	<div class="listing-text">
 		        	<a class="link-article-preview-title" target="_blank" href="' . $link . '">' . ( $title ? $title : $link ) . '</a>
-		        	<div class="listing-excerpt">' . $excerpt . '</div>
+		        	<div class="listing-excerpt desktop-only">' . $excerpt . '</div>
 		        </div>
-	        </div>';
+	        </div>
+        	<div class="listing-excerpt mobile-only">
+        		' . $excerpt . '	
+        	</div>
+	        ';
         }else{ // standard WP articles
      	   	// pbc_LOG('default article: ' . $post->post_title );
 			$ftd_img = get_the_post_thumbnail_url( $post_id, 'medium');
@@ -505,8 +509,11 @@ function display_posts_with_fields( $atts ){
 	        	</div>
 	        	<div class="listing-text">
 	        		<a href="' . get_permalink($post_id) . '">' . $post->post_title . '</a>
-		        	<div class="listing-excerpt">' . $excerpt . '</div>
+		        	<div class="listing-excerpt desktop-only">' . $excerpt . '</div>
 		        </div>
+        	</div>
+        	<div class="listing-excerpt mobile-only">
+        		' . $excerpt . '	
         	</div>
         	';
         }
