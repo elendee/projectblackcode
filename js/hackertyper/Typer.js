@@ -271,7 +271,9 @@ var Typer = window.Typer = {
 
 	showFullText: function(){
 		const regex = new RegExp( /^\t{0,2}/g )
-		Typer.console.innerHTML = Typer.text.replace( regex, '')
+		if( Typer.text ){
+			Typer.console.innerHTML = Typer.text.replace( regex, '')
+		}
 	},
 
 	shimAddFullText: function(){

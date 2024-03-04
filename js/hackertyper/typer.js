@@ -525,7 +525,7 @@ if( count ){
 	const n = Number( count.innerText.split('item')[0].trim() )
 	if( n > 0 ){
 		count.style.display = 'inline-block'
-		cart_btn.append( count )
+		if( cart_btn ) cart_btn.append( count )
 	}
 }
 

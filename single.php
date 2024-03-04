@@ -18,18 +18,18 @@ get_header();
 
 		$link = get_field('article_link');
 		$img_url = get_field('article_img_url');
-		$title = get_field('article_title');
+		// $title = get_field('article_title');
 
 		if( $link ){
 
-			$title = $title ? $title : $link;
+			// $title = $title ? $title : $link;
 			$img_url = $img_url ? $img_url : 'shouldbeACFdefault.jpg';
 
 			?>
 
 			<div class='linked-article'>
 				<img src="<?= $img_url ?>">
-				<a target="_blank" href="<?= $link ?>"><?= $title ?></a>
+				<a target="_blank" href="<?= $link ?>"><?= $link ?></a>
 			</div>
 
 		<?php
