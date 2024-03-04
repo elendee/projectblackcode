@@ -568,7 +568,7 @@ button.menu-toggle{
 }
 
 .mobile-only{
-	display: none;
+	display: none !important;
 }
 .desktop-only{
 	display: initial;	
@@ -576,7 +576,7 @@ button.menu-toggle{
 
 @media screen and (max-width: 800px){
 	.mobile-only{
-		display: initial;
+		display: initial !important;
 	}
 	.desktop-only{
 		display: none !important;	
