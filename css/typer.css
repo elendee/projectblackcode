@@ -321,10 +321,7 @@ input:-webkit-autofill:active{
 	max-height: 120px;
 	width: auto;
 }
-.listing-excerpt.mobile-only{
-	padding-bottom: 50px !important;
-	display: inline-block !important;
-}
+
 
 
 .woocommerce-cart,
@@ -599,5 +596,10 @@ button.menu-toggle{
 	}
 	#masthead{
 		border-top: 0px;
+	}
+
+	.listing-excerpt.mobile-only{
+		padding-bottom: 50px !important;
+		display: inline-block !important;
 	}
 }
