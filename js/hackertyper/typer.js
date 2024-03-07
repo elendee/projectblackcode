@@ -543,9 +543,13 @@ if( IS_TYPER ){
 	if( !IS_LIVE ) init_dev_area()
 
 	// if( window.innerWidth < 800 ){
-	CONSOLE.addEventListener('touchmove', hacker_feel )
-	CONSOLE.addEventListener('touchstart', hacker_feel )
-	document.addEventListener('keydown', hacker_listen )
+
+	console.log('skipping typer listeners')
+
+	// CONSOLE.addEventListener('touchmove', hacker_feel )
+	// CONSOLE.addEventListener('touchstart', hacker_feel )
+	// document.addEventListener('keydown', hacker_listen )
+	
 	// }else{
 		// document.addEventListener('keydown', hacker_listen )
 	// }

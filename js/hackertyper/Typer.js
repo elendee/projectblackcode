@@ -272,11 +272,35 @@ var Typer = window.Typer = {
 	showFullText: function(){
 		const regex = new RegExp( /^\t{0,2}/g )
 		if( Typer.text ){
-			Typer.console.innerHTML = Typer.text.replace( regex, '')
+
+			let full_text = Typer.text.replace( regex, '')
+
+			const len = full_text.length
+
+			const splits = []
+
+			let stop = 0
+
+			while( full_text.length >= 0 && stop < 1000 ){
+				stop++
+				const jump = 10 + Math.round( Math.random() * 10 )
+				splits.push( full_text.substr( 0, jump ) )
+				full_text = full_text.substr( jump )
+			}
+
+			Typer.console.innerHTML = ''
+			for( let i = 0; i < splits.length; i++ ){
+				setTimeout(() => {
+					Typer.console.innerText += splits[i]
+				}, i * 75 )
+			}
+
 		}
+
 	},
 
 	shimAddFullText: function(){
+		return console.log('skipping shim full text...')
 		// nonce
 		if( !this.alreadyShimmed ){
 			this.alreadyShimmed = 1
