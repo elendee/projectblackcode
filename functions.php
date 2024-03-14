@@ -138,6 +138,7 @@ add_action( 'widgets_init', 'pbc_widgets_init' );
  * Enqueue scripts and styles.
  */
 function pbc_scripts() {
+
 	wp_enqueue_style( 'pbc-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_enqueue_style( 'pbc-style-wpcf7', get_template_directory_uri() . '/css/wpcf7.css', array(), _S_VERSION );
 	wp_style_add_data( 'pbc-style', 'rtl', 'replace' );
@@ -159,6 +160,18 @@ function pbc_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pbc_scripts' );
+
+function pbc_admin_scripts() {
+    if ( current_user_can( 'manage_options' ) ) {
+    	$path = get_template_directory_uri() . '/css/admin.css';
+		wp_enqueue_style( 'pbc-admin-css', $path, array(), _S_VERSION );
+		
+    	pbc_LOG('PATH?' . $path );
+	}else{
+		pbc_LOG('NOPE');
+	}
+}
+add_action( 'admin_enqueue_scripts', 'pbc_admin_scripts' );
 
 
 
