@@ -33,81 +33,71 @@ var Typer = window.Typer = {
 		// 	Typer.text=data;// save the textfile in Typer.text
 		// });
 
-		if( window.innerWidth < 800 ){
+		if( Typer.file ){
 
-			Typer.load_mobile_field()
-
-		}else{
-
-			if( Typer.file ){
-
-				if( !Typer.file.match(/^http/i) ){
-					// might be absolute URL to file
-					Typer.file = PBC.home_url + Typer.file				
-				}
-
-				fetch( Typer.file )
-				.then( data => {
-
-					if( data?.status === 404 ){
-
-						console.error('no text found; loading fields')
-						Typer.load_fields()
-
-					}else{
-
-						console.log( data.status )
-
-						data.text()
-						.then( r => {
-							// console.log( r )
-							// Typer.text = data;// save the textfile in Typer.text
-							Typer.text = r;// save the textfile in Typer.text
-						})
-						.catch( err => {
-							Typer.load_fields()
-							console.error( 'loading fields (a)', err )
-						})
-					}
-				})
-				.catch( err => {
-					Typer.load_fields()
-					console.error( 'loading fields (b),', err )
-				})
-
-			}else{
-
-				Typer.load_fields()
-
+			if( !Typer.file.match(/^http/i) ){
+				// might be absolute URL to file
+				Typer.file = PBC.home_url + Typer.file				
 			}
 
-		}
+			fetch( Typer.file )
+			.then( data => {
 
-		console.log('attempting load: ', Typer.file )
+				if( data?.status === 404 ){
 
-	},
+					console.error('no text found; loading fields')
+					Typer.load_fields()
 
-	load_mobile_field: function(){
+				}else{
 
-		const mobile_text = document.getElementById('typer-mobile')
-		if( mobile_text.innerText ){
-			Typer.text = mobile_text.innerText
+					console.log( data.status )
+
+					data.text()
+					.then( r => {
+						// console.log( r )
+						// Typer.text = data;// save the textfile in Typer.text
+						Typer.text = r;// save the textfile in Typer.text
+					})
+					.catch( err => {
+						Typer.load_fields()
+						console.error( 'loading fields (a)', err )
+					})
+				}
+			})
+			.catch( err => {
+				Typer.load_fields()
+				console.error( 'loading fields (b),', err )
+			})
+
+			console.log('attempting load: ', Typer.file )
+
 		}else{
-			Typer.text = PBC.site_title || 'lorem ipsum'
-			console.error('no init field found')
+
+			Typer.load_fields()
+
 		}
+
 	},
 
 	load_fields: function(){
 
-		const embedded_text = document.getElementById('text-source')
+		const full_text = document.getElementById('text-source')?.innerText
+		const med_text = document.getElementById('typer-medium')?.innerText
+		const mobile_text = document.getElementById('typer-mobile')?.innerText
 
-		if( embedded_text.innerText ){
-			Typer.text = embedded_text.innerText
+		let src_text
+		if( window.innerWidth < 800 ){
+			src_text = mobile_text
+		}else if( window.innerWidth < 1200 ){
+			src_text = med_text
 		}else{
-			Typer.text = PBC.site_title || 'lorem ipsum'
-			console.error('no init field found')
+			src_text = full_text
 		}
+
+		Typer.text = src_text || PBC.site_title
+
+		console.log('loaded src text: ', ( src_text || '' ).substr(0, 100 ) )
+		console.log('loaded final text: ', ( Typer.text || '' ).substr(0, 100 ) )
 
 	},
 

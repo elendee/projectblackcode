@@ -10,7 +10,8 @@
 get_header();
 ?>
 
-	<div id='console'></div>
+	<!-- <div id='console'></div> -->
+	<code id='console'></code>
 
 	<div style='display:none' id='typer-blog-link'>
 		<?php
@@ -42,6 +43,13 @@ get_header();
 		<?php 
 			if( get_field('hackertyper_text_source') ){
 				echo get_field('hackertyper_text_source');
+			}
+		?>
+	</pre>
+	<pre id='typer-medium'>
+		<?php 
+			if( get_field('medium_text_source') ){
+				echo get_field('medium_text_source');
 			}
 		?>
 	</pre>

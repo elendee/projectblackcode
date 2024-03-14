@@ -8,7 +8,7 @@
 body {
   background: #000000;
   color: white;
-  font-family: monospace;
+  font-family: monospace, Courier, 'Courier New';
   /*font-family: 'Noto Sans';*/
   /*   font-family: 'Source Code Pro'; */
 }
@@ -144,6 +144,7 @@ option{
 }
 #text-source,
 #typer-mobile,
+#typer-medium,
 #typer-file{
 /* 	the optional ACF input */
 	display: none;
