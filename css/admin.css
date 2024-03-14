@@ -15,12 +15,12 @@
 	opacity: .6;
 }*/
 
-#menu-posts,
-#menu-media,
-#menu-pages,
-#menu-comments,
-#toplevel_page_woocommerce,
-#menu-plugins,
-#menu-appearance{
+#adminmenu #menu-posts,
+#adminmenu #menu-media,
+#adminmenu #menu-pages,
+#adminmenu #menu-comments,
+#adminmenu #toplevel_page_woocommerce,
+#adminmenu #menu-plugins,
+#adminmenu #menu-appearance{
 	opacity: 1;
 }
