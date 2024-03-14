@@ -1,5 +1,7 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap'); */
+@font-face{
+	src: url("../resource/fonts/Rubik_Mono_One/RubikMonoOne-Regular.ttf") format('truetype');
+	font-family: Rubik;
+}
 
 *{
 	box-sizing: border-box;
@@ -57,13 +59,16 @@ a:visited{
 #masthead{
 	position: fixed;
 	z-index: 99;
-	bottom:  0px;
+	top:  0px;
 	width: 100%;
-	border-top: 1px solid;
+	border-top: 1px solid rgb(40, 40, 40);
 }
 
 #primary-menu{
-	background: rgba(0, 0, 0, .8)
+	background: rgba(0, 0, 0, .8);
+	background: linear-gradient( 180deg, black, transparent );
+	/* border: 2px solid red; */
+	height: 70px;
 }
 
 /*the header hierarchy*/
@@ -76,11 +81,14 @@ a:visited{
 	list-style: none;
 	display: inline-block;
 	position: relative;
+	margin: 0 15px;
 }
 
 #primary-menu li a{
 	color: white !important;
 	text-transform: lowercase;
+	font-family: Rubik;
+	font-size: 1.8rem;
 }
 #primary-menu li:hover a{
 	text-shadow: 0px 0px white !important;
@@ -155,7 +163,7 @@ option{
 	width: 100%;
 	height: 100vh;
 	position: fixed;
-	top: 0;
+	top: 50px;
 	border: 5px solid black;
 	left: 0;
 	font-size: .9rem;
