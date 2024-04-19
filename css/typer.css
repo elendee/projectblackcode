@@ -583,6 +583,9 @@ button.menu-toggle{
 #primary article>.entry-header{
 	display: none;
 }
+#primary article>.entry-content{
+	margin-top: 50px;
+}
 
 @media screen and (max-width: 800px){
 	.mobile-only{
