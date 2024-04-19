@@ -445,7 +445,7 @@ body.woocommerce-checkout .select2-selection__rendered option{
 .select2-results .selected,
 .select2-container--default .select2-results__option[aria-selected=true], 
 .select2-container--default .select2-results__option[data-selected=true]{
-/*	background: black !important;*/
+	background: black !important;
 	color: lightgreen !important;
 }
 .select2-container--default .select2-results__option[aria-selected=true], 
