@@ -119,13 +119,15 @@ const build_button = ( text, sound ) => {
 
 const build_product = product => {
 
+	// debugger
+
 	// product row
 	const wrapper = document.createElement('div')
 	wrapper.classList.add('pbc-product')
 
 	// append title 
 	const title = document.createElement('h4')
-	title.innerHTML = product.post_title || 'untitled'
+	title.innerHTML = `<a href='${product.guid}'>${product.post_title || 'untitled'}</a>`
 	// title.innerText = product.post_title || 'untitled'
 	wrapper.append( title )
 
