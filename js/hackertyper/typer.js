@@ -125,7 +125,8 @@ const build_product = product => {
 
 	// append title 
 	const title = document.createElement('h4')
-	title.innerText = product.post_title || 'untitled'
+	title.innerHTML = product.post_title || 'untitled'
+	// title.innerText = product.post_title || 'untitled'
 	wrapper.append( title )
 
 	// build row with columns
@@ -141,7 +142,8 @@ const build_product = product => {
 
 	if( product.post_excerpt ){
 		const excerpt = document.createElement('div')
-		excerpt.innerText = product.post_excerpt
+		// excerpt.innerText = product.post_excerpt
+		excerpt.innerHTML = product.post_excerpt
 		right.append( excerpt )
 	}
 
