@@ -580,6 +580,10 @@ button.menu-toggle{
 	display: initial;	
 }
 
+#primary article>.entry-header{
+	display: none;
+}
+
 @media screen and (max-width: 800px){
 	.mobile-only{
 		display: initial !important;
