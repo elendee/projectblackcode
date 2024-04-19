@@ -3,3 +3,25 @@
 #adminmenuback{
 	background: black !important;
 }
+
+#adminmenu>li{
+	opacity: .5;
+}
+
+/*#menu-settings,
+#menu-tools,
+#menu-users,
+#toplevel_page_woocommerce-marketing{
+	opacity: .6;
+}*/
+
+#adminmenu #menu-posts-product,
+#adminmenu #menu-posts,
+#adminmenu #menu-media,
+#adminmenu #menu-pages,
+#adminmenu #menu-comments,
+#adminmenu #toplevel_page_woocommerce,
+#adminmenu #menu-plugins,
+#adminmenu #menu-appearance{
+	opacity: 1;
+}
