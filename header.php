@@ -31,7 +31,7 @@
 	<meta property="og:type" content="website">
 
 	<!-- Twitter Card Meta Tags -->
-	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:card" content="summary"> <!-- ( summary_large_image is one step up) -->
 	<meta name="twitter:title" content="<?php echo $site_title; ?>">
 	<meta name="twitter:description" content="<?php echo $description; ?>">
 	<meta name="twitter:image" content="<?php echo $social_img; ?>">
