@@ -15,6 +15,29 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<?php 
+		$social_img = 'https://antiracistai.com/wp-content/uploads/2024/04/IMG_1315.jpg'; 
+		$description = get_bloginfo('description'); // Settings > Site Tagline
+		$site_title = get_bloginfo('name'); // Settings > Site Title
+		$twitter_handle = '@antiracistai';
+	?>
+
+	<!-- Open Graph Meta Tags -->
+	<meta property="og:title" content="<?php echo $site_title; ?>">
+	<meta property="og:description" content="<?php echo $description; ?>">
+	<meta property="og:url" content="<?php echo get_permalink(); ?>">
+	<meta property="og:image" content="<?php echo $social_img; ?>">
+	<meta property="og:type" content="website">
+
+	<!-- Twitter Card Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="<?php echo $site_title; ?>">
+	<meta name="twitter:description" content="<?php echo $description; ?>">
+	<meta name="twitter:image" content="<?php echo $social_img; ?>">
+	<meta name="twitter:site" content="<?php echo $twitter_handle; ?>">
+
+
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>

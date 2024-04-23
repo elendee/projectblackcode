@@ -282,7 +282,10 @@ var Typer = window.Typer = {
 			for( let i = 0; i < splits.length; i++ ){
 				setTimeout(() => {
 					Typer.console.innerText += splits[i]
-				}, i * 75 )
+					Typer.console.scroll({
+						top: 100000,
+					})
+				}, i * 40 )
 			}
 
 		}

@@ -169,6 +169,7 @@ option{
 	font-size: .9rem;
 	white-space: break-spaces !important;
 	overflow: auto !important;
+	padding-bottom: 80px;
 }
 
 .glow-green{
