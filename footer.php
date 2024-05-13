@@ -13,8 +13,11 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-info">
-			footer info
+			© Copyright <? echo date('Y'); ?> Antiracist AI All Rights Reserved
 		</div><!-- .site-info -->
+		<div class='site-socials'>
+			
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
