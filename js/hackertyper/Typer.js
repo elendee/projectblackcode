@@ -287,6 +287,7 @@ var Typer = window.Typer = {
 					})
 				}, i * 40 )
 			}
+			console.log('scrolling splits', splits.length )
 
 		}
 
