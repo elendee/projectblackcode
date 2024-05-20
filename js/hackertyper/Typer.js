@@ -279,21 +279,26 @@ var Typer = window.Typer = {
 			}
 
 			Typer.console.innerHTML = ''
-			let elapsed = 0
-			const buffer = 40
+
+			let buffer = 40
+
 			for( let i = 0; i < splits.length; i++ ){
 				setTimeout(() => {
 					Typer.console.innerText += splits[i]
-					elapsed += buffer
-					if( elapsed > 1000 ){
-						elapsed = 0
-						Typer.console.scroll({
-							top: 100000,
-						})
-					}
 				}, i * buffer )
 			}
-			console.log('scrolling splits', splits.length )
+			const total_ms = ( splits.length * .8 ) * buffer
+			let ms = 0
+			while( ms < total_ms ){
+				ms += 2000
+				setTimeout(() => {
+					Typer.console.scroll({
+						top: 100000,
+					})
+				}, ms )
+				console.log('scrolling..')
+			}
+			console.log('scrolling splits', splits.length , 'should be done after ' + ( total_ms / 1000 ) )
 
 		}
 
