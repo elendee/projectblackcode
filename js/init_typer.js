@@ -1,7 +1,7 @@
-import { Modal } from './Modal.js?v=118'
-import hal from './hal.js?v=118'
+import { Modal } from './Modal.js?v=119'
+import hal from './hal.js?v=119'
 // import spinner from './hal.js'
-import typer from './hackertyper/typer.js?v=118'
+import typer from './hackertyper/typer.js?v=119'
 
 
 console.log('typer' ) // Modal, hal, spinner

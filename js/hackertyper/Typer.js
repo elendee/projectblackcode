@@ -5,6 +5,9 @@ const SOUNDS = {
 }
 
 
+
+let TYPER_SCROLLING
+
 var Typer = window.Typer = {
 
 	text: null,
@@ -271,10 +274,14 @@ var Typer = window.Typer = {
 
 			let stop = 0
 
-			while( full_text.length >= 0 && stop < 1000 ){
+			while( full_text.length > 0 && stop < 215000 ){
 				stop++
 				const jump = 10 + Math.round( Math.random() * 10 )
-				splits.push( full_text.substr( 0, jump ) )
+				const cut = full_text.substr( 0, jump )
+				splits.push( cut )
+				if( cut.length >= full_text.length - 1 ){
+					break;
+				}
 				full_text = full_text.substr( jump )
 			}
 
@@ -285,20 +292,26 @@ var Typer = window.Typer = {
 			for( let i = 0; i < splits.length; i++ ){
 				setTimeout(() => {
 					Typer.console.innerText += splits[i]
+					// console.log('print print')
 				}, i * buffer )
 			}
-			const total_ms = ( splits.length * .8 ) * buffer
-			let ms = 0
-			while( ms < total_ms ){
-				ms += 2000
-				setTimeout(() => {
+
+			if( !TYPER_SCROLLING ){
+				TYPER_SCROLLING = setInterval(() => {
 					Typer.console.scroll({
 						top: 100000,
 					})
-				}, ms )
-				console.log('scrolling..')
+				}, 1000 )
+
+				// console.log('set clear for ' + ( buffer * splits.length ) )
+
+				setTimeout(() => {
+					clear_scroll()
+				}, buffer * splits.length )
+				// Typer.console.addEventListener('scroll', clear_scroll )
 			}
-			console.log('scrolling splits', splits.length , 'should be done after ' + ( total_ms / 1000 ) )
+
+			// console.log('scrolling splits', splits.length , 'should be done after ' + ( total_ms / 1000 ) )
 
 		}
 
@@ -339,6 +352,12 @@ var Typer = window.Typer = {
 
 
 
+}
+
+
+const clear_scroll = e => {
+	clearInterval( TYPER_SCROLLING )
+	TYPER_SCROLLING = false
 }
 
 // const typer = Typer()

@@ -4,10 +4,10 @@
 
 	The original work has been modified for project-black-code, 2022
 */
-import fetch_wrap from '../fetch_wrap.js?v=118'
-import hal from '../hal.js?v=118'
-import { Modal } from '../Modal.js?v=118'
-import Typer from './Typer.js?v=118'
+import fetch_wrap from '../fetch_wrap.js?v=119'
+import hal from '../hal.js?v=119'
+import { Modal } from '../Modal.js?v=119'
+import Typer from './Typer.js?v=119'
 
 
 
