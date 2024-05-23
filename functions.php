@@ -272,6 +272,8 @@ function home_page_products() {
 
 	foreach ($products->posts as $product) {
 		$product->product_img = get_the_post_thumbnail( $product->ID );
+        $product->acf_fields = get_fields( $product->ID ); // Retrieve all ACF fields for the product
+
 	}
 
 	echo json_encode( $products->posts );
@@ -543,3 +545,16 @@ function display_posts_with_fields( $atts ){
 
 }
 add_shortcode('display_posts_with_fields', 'display_posts_with_fields');
+
+
+
+
+
+
+add_action( 'woocommerce_single_product_summary', 'pbc_custom_product_fields', 3 );
+  
+function pbc_custom_product_fields() { ?>
+<?php if( get_field('amazon_link') ) { ?>
+	<div class="pbc-amazon-link"><?php the_field('amazon_link'); ?></div>
+<?php }
+}

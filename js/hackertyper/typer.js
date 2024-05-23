@@ -163,51 +163,65 @@ const build_product = product => {
 
 	}
 
-	const add_to_cart = build_button( 'add to cart', {
-		type: 'success',
-		volume: .1,
-		count: 2,
-		stagger: 400,
-		step_vol: .2,
-	})
-	add_to_cart.addEventListener('click', () => {
-		jQuery.ajax({
-			url: PBC.ajaxurl,
-			method: 'POST',
-			data: {
-				action: 'pbc_add',
-				product_id: product.ID,
-				quantity: 1,
-			}
+	if( product.acf_fields?.amazon_link ){
+
+		const link = document.createElement('a')
+		link.style['text-decoration'] = 'none'
+		link.classList.add('button')
+		link.href = product.acf_fields?.amazon_link
+		link.target ="_blank"
+		link.innerText = 'Buy this on Amazon'
+		right.append( link )
+
+	}else{
+
+		const add_to_cart = build_button( 'add to cart', {
+			type: 'success',
+			volume: .1,
+			count: 2,
+			stagger: 400,
+			step_vol: .2,
 		})
-		.then( res => {
+		add_to_cart.addEventListener('click', () => {
+			jQuery.ajax({
+				url: PBC.ajaxurl,
+				method: 'POST',
+				data: {
+					action: 'pbc_add',
+					product_id: product.ID,
+					quantity: 1,
+				}
+			})
+			.then( res => {
 
-			console.log( res )
+				console.log( res )
 
-			// print cart quantity
-			if( res?.fragments ){
-				let quantity
-				for( const key in res.fragments ){
-					const s = res.fragments[ key ]
-					const q = s.match(/quantity">[0-9].*/)
-					if( q ){
-						quantity = s.substr( q.index  + 10, 50 ).split(' ')[0]
-						const n = Number( quantity )
-						if( typeof n === 'number' ){
-							hal('success', quantity + ` item${ n > 1 ? 's' : '' } now in cart<br><a href="${ PBC.home_url }/cart">view cart</a>`, 15 * 1000 )
-							count.innerText =  n + ( ( n > 1 || n === 0 ) ? ' items' : ' item' )
+				// print cart quantity
+				if( res?.fragments ){
+					let quantity
+					for( const key in res.fragments ){
+						const s = res.fragments[ key ]
+						const q = s.match(/quantity">[0-9].*/)
+						if( q ){
+							quantity = s.substr( q.index  + 10, 50 ).split(' ')[0]
+							const n = Number( quantity )
+							if( typeof n === 'number' ){
+								hal('success', quantity + ` item${ n > 1 ? 's' : '' } now in cart<br><a href="${ PBC.home_url }/cart">view cart</a>`, 15 * 1000 )
+								count.innerText =  n + ( ( n > 1 || n === 0 ) ? ' items' : ' item' )
+							}
 						}
 					}
 				}
-			}
 
+			})
+			.catch( err => {
+				console.log( err )
+			})
 		})
-		.catch( err => {
-			console.log( err )
-		})
-	})
-	right.append( document.createElement('br') )
-	right.append( add_to_cart )
+		right.append( document.createElement('br') )
+		right.append( add_to_cart )
+
+	}
 
 	return wrapper
 
@@ -269,7 +283,7 @@ const pop_menu_modal = e => {
 				data: {
 					action: 'home_page_products',
 					nonce: PBC.nonce,
-					is_user_logged_in: PBC.is_user_logged_in,					
+					is_user_logged_in: PBC.is_user_logged_in,
 				}
 			}) 
 			.then( res => {
