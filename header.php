@@ -17,7 +17,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<?php 
-		$social_img = 'https://antiracistai.com/wp-content/uploads/2024/04/IMG_1315.jpg'; 
+		$social_img = 'https://antiracistai.com/wp-content/uploads/2024/05/cropped-Antiracistai_Rectangular_Banner_Logo.png'; 
 		$description = get_bloginfo('description'); // Settings > Site Tagline
 		$site_title = get_bloginfo('name'); // Settings > Site Title
 		$twitter_handle = '@antiracistai';
