@@ -605,7 +605,13 @@ button.menu-toggle{
 #primary article>.entry-content{
 	margin-top: 50px;
 }
-
+a.button.amazon-link{
+	background: black;
+	border: 1px solid lightgreen;
+	border-radius: 0px;
+	text-shadow: none;
+	color: lightgreen;
+}
 
 @media screen and (max-width: 800px){
 	.mobile-only{
